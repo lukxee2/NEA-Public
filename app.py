@@ -201,6 +201,11 @@ def get_date():
 
 # This function is very useful to grab room data for API calls, reception page and housekeeping page
 def get_room_data():
+    """A function that grabs all the room data, and returns it in a dictionary. Very useful for the receptionist, housekeeping, and dashboard for displaying rooms and analytics.
+
+    Returns:
+        dictionaries: returns all the floors with the relative rooms and their id, number, status, floor, owner, type, and housekeeping status
+    """
     floor1 = db.session.query(room) \
         .with_entities(room.id, room.num, room.status, room.floor, room.owner, room.type, room.housekeeping_status) \
         .filter(room.floor=="1").all()
