@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'caros';
+    src: local('Caros Medium'), url(../img/CarosMedium.ttf) format('ttf');
+  }

@@ -1,0 +1,75 @@
+{% extends "dashlayout.html" %}
+
+{% block body %}
+<div class="lg:relative lg:p-5 lg:mt-14 absolute pt-1 mt-2 pl-5"> <!-- took a while but finally dialled in the responsive things, please don't delete istg -->
+	<div class="p-10 px-9">
+		<div class="flex flex-col xl:flex-row xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6">
+			<div class="px-8 bg-gray-100 dark:bg-gray-800 flex flex-col pr-14"> <!--xl:w-3/5-->
+			<p class="text-2xl mustica leading-9 text-gray-800">Demo Controls</p> <!--pt-5-->
+			<div class="py-3"></div> <!--pt-7-->
+            <div class="pt-4">
+                <label class="text-gray-600 mustica text-rg pt-3 pb-3">Reset Database</label><br>
+                <div class="pt-2">
+                <p class="text-gray-600 mustica text-sm pt-3 pb-3">This will reset all orders, queues, and room status' leaving only user logins</p>
+                <!--<button class="pt-1 transition duration-200 bg-gray-500 hover:bg-gray-600 focus:bg-gray-700 focus:shadow-sm focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50 text-white w-1/3 py-1 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">Turn on</button>-->
+                <button onclick="reset_database()" class="pt-2 bg-gray-900 ring-2 ring-gray-800 hover:bg-transparent hover:text-gray-900 focus:bg-gray-800 focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out font-semibold text-center inline-block ext-white w-2/4 py-2.5 rounded-lg text-sm text-white">Reset</button>
+                </div>
+            </div>
+            </div>
+		</div>
+		</div>
+		</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    function reset_database() {
+          fetch('/api/reset_database', {
+          method: 'GET', // or 'PUT'
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          });
+        setTimeout(function(){
+            window.location.href = "{{ url_for('root') }}"
+        }, 500);
+    }
+</script>
+<style> 
+	@font-face {
+	  font-family: 'Mustica'; /*a name to be used later*/
+	  src: url('../static/fonts/MusticaproSemibold.ttf'); /*URL to font*/
+	}
+	@font-face {
+	  font-family: 'LarkeNeueBold'; /*a name to be used later*/
+	  src: url('../static/fonts/Larke Neue Bold.ttf'); /*URL to font*/
+	}
+	@font-face {
+	  font-family: 'LarkeNeueRegular'; /*a name to be used later*/
+	  src: url('../static/fonts/Larke Neue Regular.ttf'); /*URL to font*/
+	}
+	@font-face {
+	  font-family: 'LarkeNeueThin'; /*a name to be used later*/
+	  src: url('../static/fonts/Larke Neue Thin.ttf'); /*URL to font*/
+	}
+	@font-face {
+	  font-family: 'ViceCitySans'; /*a name to be used later*/
+	  src: url('../static/fonts/ViceCitySans.otf'); /*URL to font*/
+	}
+	.mustica {
+	  font-family: 'Mustica'
+	}
+	.LarkeNeueBold {font-family: 'LarkeNeueBold'}
+	.LarkeNeueRegular {font-family: 'LarkeNeueRegular'}
+	.LarkeNeueThin {font-family: 'LarkeNeueThin'}
+	.titlecolor {
+	  color: #232e40;
+	}
+	.ViceCitySans {font-family: 'ViceCitySans'}
+  </style>
+
+{% endblock %}

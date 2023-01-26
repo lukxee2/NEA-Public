@@ -1,0 +1,77 @@
+{% extends "dashlayout.html" %} {% block body %}
+<div class="lg:relative lg:p-5 lg:mt-14 absolute pt-16 mt-2 pl-5">
+  <!-- took a while but finally dialled in the responsive things, please don't delete istg -->
+  <div class="p-16">
+    <div class="p-8 bg-white shadow mt-24">
+      <div class="grid grid-cols-1 md:grid-cols-3">
+        <div
+          class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0"
+        >
+          <div>
+            <p class="font-bold text-gray-700 text-xl">{{ get_room_no(user.email) }}</p>
+            <p class="text-gray-400">Rooms</p>
+          </div>
+          <div>
+            <p class="font-bold text-gray-700 text-xl">{{ get_order_no(user.email) }}</p>
+            <p class="text-gray-400">Orders</p>
+          </div>
+          <div>
+          </div>
+        </div>
+        <div class="relative">
+          <div
+            class="w-40 h-40 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500"
+          >
+            <img class="w-full h-full rounded-full" src="{{image_file}}">
+        </img>
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 text-center border-b pb-12">
+        <h1 class="text-5xl mustica text-gray-700">
+            {% if user.display_name %}{{user.display_name}}{% else %}Display Name{% endif%}
+        </h1>
+      </div>
+      <div class="mt-12 flex flex-col justify-center">
+        <p class="text-gray-600 text-center font-light lg:px-16">
+          {{user.description}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block footer %} {% endblock %} {% block script %} 
+<style> 
+    @font-face {
+      font-family: 'Mustica'; /*a name to be used later*/
+      src: url('../static/fonts/MusticaproSemibold.ttf'); /*URL to font*/
+    }
+    @font-face {
+      font-family: 'LarkeNeueBold'; /*a name to be used later*/
+      src: url('../static/fonts/Larke Neue Bold.ttf'); /*URL to font*/
+    }
+    @font-face {
+      font-family: 'LarkeNeueRegular'; /*a name to be used later*/
+      src: url('../static/fonts/Larke Neue Regular.ttf'); /*URL to font*/
+    }
+    @font-face {
+      font-family: 'LarkeNeueThin'; /*a name to be used later*/
+      src: url('../static/fonts/Larke Neue Thin.ttf'); /*URL to font*/
+    }
+    @font-face {
+      font-family: 'ViceCitySans'; /*a name to be used later*/
+      src: url('../static/fonts/ViceCitySans.otf'); /*URL to font*/
+    }
+    .mustica {
+      font-family: 'Mustica'
+    }
+    .LarkeNeueBold {font-family: 'LarkeNeueBold'}
+    .LarkeNeueRegular {font-family: 'LarkeNeueRegular'}
+    .LarkeNeueThin {font-family: 'LarkeNeueThin'}
+    .titlecolor {
+      color: #232e40;
+    }
+    .ViceCitySans {font-family: 'ViceCitySans'}
+  </style>
+  {% endblock
+%}

@@ -1,0 +1,88 @@
+{% extends "layout2edit.html" %}
+{% block content %}
+<!-- component -->
+<div class="min-h-screen bg-transparent flex flex-col justify-center sm:py-12">
+    <div class="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
+      <h1 class="mustica text-center text-2xl mb-5 text-white">Reset Password</h1>  
+      <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
+        <!--{% block messages %} {% endblock %}-->
+        <div class="px-5 py-7">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.email.label(class="font-semibold text-sm text-gray-600 pb-1 block") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="border rounded-lg px-3 py-2 mt-1 mb-1 text-sm w-full") }}
+                    <div class="py-2">
+                    <div class="border border-red-400 rounded-b bg-red-100 px-2 py-2 text-red-700">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                    {{ form.email(class="border rounded-lg px-3 py-2 mt-1 mb-1 text-sm w-full") }}
+                {% endif %}
+            </div>
+            <div class="pt-5">
+            {{ form.submit(class="pt-2 bg-gray-900 ring-2 ring-gray-800 hover:bg-transparent hover:text-gray-900 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out font-semibold text-center inline-block ext-white w-full py-2.5 rounded-lg text-sm shadow-sm text-white") }}
+            </div>
+          </div>
+        </form>
+          <div class="py-5">
+          <div class="flex items-center"> <!--grid grid-cols-2 gap-1-->
+            <div class="text-center sm:text-left whitespace-nowrap">
+              <a href="{{ url_for('login') }}">
+                <button href="/test" class="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline-block align-text-top" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
+                    </svg>
+                    <span class="inline-block ml-1">Login</span>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style> 
+    @font-face {
+      font-family: 'Mustica'; /*a name to be used later*/
+      src: url('./static/fonts/MusticaproSemibold.ttf'); /*URL to font*/
+    }
+    @font-face {
+      font-family: 'LarkeNeueBold'; /*a name to be used later*/
+      src: url('./static/fonts/Larke Neue Bold.ttf'); /*URL to font*/
+    }
+    @font-face {
+      font-family: 'LarkeNeueRegular'; /*a name to be used later*/
+      src: url('./static/fonts/Larke Neue Regular.ttf'); /*URL to font*/
+    }
+    @font-face {
+      font-family: 'LarkeNeueThin'; /*a name to be used later*/
+      src: url('./static/fonts/Larke Neue Thin.ttf'); /*URL to font*/
+    }
+    @font-face {
+      font-family: 'ViceCitySans'; /*a name to be used later*/
+      src: url('./static/fonts/ViceCitySans.otf'); /*URL to font*/
+    }
+    .hotel-bg {
+      background-image: linear-gradient(to right, rgba(17, 24, 39, 1), rgba(17, 24, 39, .90), rgba(43, 108, 176, 0)), 
+      url('./static/img/resortbackground.jpg');
+      background-repeat: no-repeat;
+          background-size: 100% 300%;
+      background-position: center;
+    }
+    .mustica {
+      font-family: 'Mustica'
+    }
+    .LarkeNeueBold {font-family: 'LarkeNeueBold'}
+    .LarkeNeueRegular {font-family: 'LarkeNeueRegular'}
+    .LarkeNeueThin {font-family: 'LarkeNeueThin'}
+    .titlecolor {
+      color: #232e40;
+    }
+    .ViceCitySans {font-family: 'ViceCitySans'}
+  </style>
+{% endblock content %}

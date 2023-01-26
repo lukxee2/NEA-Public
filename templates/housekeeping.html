@@ -1,0 +1,886 @@
+{% extends "dashlayout.html" %}
+
+{% block body %}
+<div class="lg:relative lg:p-5 lg:mt-14 absolute pt-1 mt-2 pl-5"> <!-- took a while but finally dialled in the responsive things, please don't delete istg -->
+	<div class="">
+        <div class="pt-4"><span class="mustica  px-6 text-2xl"> Housekeeping Management </span><br></div>
+        <div class="px-6 LarkeNeueThin">Use the diagrams below to find the shortest possible path for your housekeeping route.<br>
+            You can also click on the room notificiations to get more room details or reset its housekeeping status!</div>
+        <div class="px-8 py-8"> <!-- px-8 py-8 -->
+            <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+                    <li class="mr-2" role="presentation">
+                        <button class="inline-block p-4 rounded-t-lg border-b-2" id="floor1-tab" data-tabs-target="#floor1" type="button" role="tab" aria-controls="profile" aria-selected="false">Floor 1</button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                        <button class="inline-block p-4 rounded-t-lg border-b-2" id="floor2-tab" data-tabs-target="#floor2" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Floor 2</button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                        <button class="inline-block p-4 rounded-t-lg border-b-2" id="floor3-tab" data-tabs-target="#floor3" type="button" role="tab" aria-controls="settings" aria-selected="false">Floor 3</button>
+                    </li>
+                    <li role="presentation">
+                        <button class="inline-block p-4 rounded-t-lg border-b-2" id="floor4-tab" data-tabs-target="#floor4" type="button" role="tab" aria-controls="contacts" aria-selected="false">Floor 4</button>
+                    </li>
+                    <li role="presentation">
+                        <button class="inline-block p-4 rounded-t-lg border-b-2" id="floor5-tab" data-tabs-target="#floor5" type="button" role="tab" aria-controls="contacts" aria-selected="false">Floor 5</button>
+                    </li>
+                </ul>
+            </div>
+            <!--<img class="absolute" src="./static/img/Floor1.png" alt="" width="800">-->
+        <div class="">
+            <div id="myTabContent">
+                <div class="hidden container rounded-xl shadow-md" id="floor1" role="tabpanel" aria-labelledby="floor1-tab">
+                    <p class="LarkeNeueBold text-5xl floor1text uppercase">Floor 1</p> <!-- LarkeNeueBold -->
+                    {% for room in floor1 %}
+                        <div class="ping{{room.num}} w-2.5 h-2.5 rounded-full bg-{{ get_status_colour(room.housekeeping_status) }} animate-ping"></div>
+                        <div data-popover-target="popover-ping{{room.num}}" class="ping{{room.num}} w-2.5 h-2.5 rounded-full bg-{{ get_status_colour(room.housekeeping_status) }}"></div>
+                        <div data-popover id="popover-ping{{room.num}}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+                            <div class="p-3">
+                                <div class="flex items-center justify-between mb-2">
+                                    <a href="./manage/{{room.id}}">
+                                        <img class="w-10 h-10 rounded-full" src="{{ get_owner_image(room.owner) }}">
+                                    </a>
+                                </div>
+                                <p class="text-base font-semibold leading-none text-gray-900 dark:text-white">
+                                    <a href="./manage/{{room.id}}">{{room.num}}</a>
+                                </p>
+                                <p class="mb-2 text-sm font-normal">
+                                    {% if room.owner %}
+                                    <a href="./manage/{{room.id}}" class="hover:underline">{{room.owner}}</a>
+                                    {% else %}
+                                    <a href="./manage/{{room.id}}" class="hover:underline">No Owner</a>
+                                    {% endif %}
+                                </p>
+                                <p class="text-sm font-base">Type: {{room.type}}</p>
+                                <p class="mb-2 text-sm font-base">Status: {{room.status}}</p>
+                                <p class="mb-2 text-base font-semibold text-gray-900">{{room.housekeeping_status}}</p>
+                                <div class="flex pt-2">
+                                    <button onclick="cleanroom('{{room.id}}')" type="button" class="inline-flex items-center justify-center w-full px-5 py-2 mr-2 text-xs font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Clean Room</button>
+                                    <button type="button" class="inline-flex items-center justify-center w-full px-5 py-2 mr-2 text-xs font-medium text-red-600 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Reset Status</button>
+                                </div>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        {% endfor %}
+                        <div class="node1 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node2 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node3 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node4 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node5 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node6 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node7 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node8 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node9 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node10 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node11 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node12 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node13 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node14 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node15 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node16 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node17 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node18 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node19 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node20 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div id="line_container">
+                        </div>
+                        <div class="stairs1 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs1 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs1"></div>
+                        <div data-popover id="popover-stairs1" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        <div class="stairs2 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs2 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs2"></div>
+                        <div data-popover id="popover-stairs2" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        <div class="stairs3 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs3 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs3"></div>
+                        <div data-popover id="popover-stairs3" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                    </div>
+                <div class="hidden container2 rounded-xl shadow-md" id="floor2" role="tabpanel" aria-labelledby="floor2-tab">
+                    <p class="LarkeNeueBold text-5xl floor1text uppercase">Floor 2</p>
+                    {% for room in floor2 %}
+                        <div class="ping{{room.num}} w-2.5 h-2.5 rounded-full bg-{{ get_status_colour(room.housekeeping_status) }} animate-ping"></div>
+                        <div data-popover-target="popover-ping{{room.num}}" class="ping{{room.num}} w-2.5 h-2.5 rounded-full bg-{{ get_status_colour(room.housekeeping_status) }}"></div>
+                        <div data-popover id="popover-ping{{room.num}}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+                            <div class="p-3">
+                                <div class="flex items-center justify-between mb-2">
+                                    <a href="./manage/{{room.id}}">
+                                        <img class="w-10 h-10 rounded-full" src="{{ get_owner_image(room.owner) }}">
+                                    </a>
+                                </div>
+                                <p class="text-base font-semibold leading-none text-gray-900 dark:text-white">
+                                    <a href="./manage/{{room.id}}">{{room.num}}</a>
+                                </p>
+                                <p class="mb-2 text-sm font-normal">
+                                    {% if room.owner %}
+                                    <a href="./manage/{{room.id}}" class="hover:underline">{{room.owner}}</a>
+                                    {% else %}
+                                    <a href="./manage/{{room.id}}" class="hover:underline">No Owner</a>
+                                    {% endif %}
+                                </p>
+                                <p class="text-sm font-base">Type: {{room.type}}</p>
+                                <p class="mb-2 text-sm font-base">Status: {{room.status}}</p>
+                                <p class="mb-2 text-base font-semibold text-gray-900">{{room.housekeeping_status}}</p>
+                                <div class="flex pt-2">
+                                    <button onclick="cleanroom('{{room.id}}')" type="button" class="inline-flex items-center justify-center w-full px-5 py-2 mr-2 text-xs font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Clean Room</button>
+                                    <button type="button" class="inline-flex items-center justify-center w-full px-5 py-2 mr-2 text-xs font-medium text-red-600 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Reset Status</button>
+                                </div>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        {% endfor %}
+                        <div class="node1 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node2 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node3 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node4 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node5 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node6 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node7 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node8 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node9 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node10 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node11 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node12 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node13 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node14 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node15 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node16 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node17 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node18 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node19 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node20 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div id="line_container2">
+                        </div>
+                        <div class="stairs1 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs1 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs4"></div>
+                        <div data-popover id="popover-stairs4" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        <div class="stairs2 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs2 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs5"></div>
+                        <div data-popover id="popover-stairs5" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        <div class="stairs3 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs3 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs6"></div>
+                        <div data-popover id="popover-stairs6" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                </div>
+                <div class="hidden container3 rounded-xl shadow-md" id="floor3" role="tabpanel" aria-labelledby="floor3-tab">
+                    <p class="LarkeNeueBold text-5xl floor1text uppercase">Floor 3</p>
+                    {% for room in floor3 %}
+                        <div class="ping{{room.num}} w-2.5 h-2.5 rounded-full bg-{{ get_status_colour(room.housekeeping_status) }} animate-ping"></div>
+                        <div data-popover-target="popover-ping{{room.num}}" class="ping{{room.num}} w-2.5 h-2.5 rounded-full bg-{{ get_status_colour(room.housekeeping_status) }}"></div>
+                        <div data-popover id="popover-ping{{room.num}}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+                            <div class="p-3">
+                                <div class="flex items-center justify-between mb-2">
+                                    <a href="./manage/{{room.id}}">
+                                        <img class="w-10 h-10 rounded-full" src="{{ get_owner_image(room.owner) }}">
+                                    </a>
+                                </div>
+                                <p class="text-base font-semibold leading-none text-gray-900 dark:text-white">
+                                    <a href="./manage/{{room.id}}">{{room.num}}</a>
+                                </p>
+                                <p class="mb-2 text-sm font-normal">
+                                    {% if room.owner %}
+                                    <a href="./manage/{{room.id}}" class="hover:underline">{{room.owner}}</a>
+                                    {% else %}
+                                    <a href="./manage/{{room.id}}" class="hover:underline">No Owner</a>
+                                    {% endif %}
+                                </p>
+                                <p class="text-sm font-base">Type: {{room.type}}</p>
+                                <p class="mb-2 text-sm font-base">Status: {{room.status}}</p>
+                                <p class="mb-2 text-base font-semibold text-gray-900">{{room.housekeeping_status}}</p>
+                                <div class="flex pt-2">
+                                    <button onclick="cleanroom('{{room.id}}')" type="button" class="inline-flex items-center justify-center w-full px-5 py-2 mr-2 text-xs font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Clean Room</button>
+                                    <button type="button" class="inline-flex items-center justify-center w-full px-5 py-2 mr-2 text-xs font-medium text-red-600 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Reset Status</button>
+                                </div>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        {% endfor %}
+                        <div class="node1 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node2 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node3 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node4 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node5 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node6 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node7 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node8 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node9 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node10 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node11 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node12 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node13 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node14 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node15 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node16 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node17 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node18 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node19 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node20 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div id="line_container3">
+                        </div>
+                        <div class="stairs1 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs1 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs7"></div>
+                        <div data-popover id="popover-stairs7" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        <div class="stairs2 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs2 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs8"></div>
+                        <div data-popover id="popover-stairs8" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        <div class="stairs3 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs3 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs9"></div>
+                        <div data-popover id="popover-stairs9" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                </div>
+                <div class="hidden container4 rounded-xl shadow-md" id="floor4" role="tabpanel" aria-labelledby="floor4-tab">
+                    <p class="LarkeNeueBold text-5xl floor1text uppercase">Floor 4</p>
+                    {% for room in floor4 %}
+                        <div class="ping{{room.num}} w-2.5 h-2.5 rounded-full bg-{{ get_status_colour(room.housekeeping_status) }} animate-ping"></div>
+                        <div data-popover-target="popover-ping{{room.num}}" class="ping{{room.num}} w-2.5 h-2.5 rounded-full bg-{{ get_status_colour(room.housekeeping_status) }}"></div>
+                        <div data-popover id="popover-ping{{room.num}}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+                            <div class="p-3">
+                                <div class="flex items-center justify-between mb-2">
+                                    <a href="./manage/{{room.id}}">
+                                        <img class="w-10 h-10 rounded-full" src="{{ get_owner_image(room.owner) }}">
+                                    </a>
+                                </div>
+                                <p class="text-base font-semibold leading-none text-gray-900 dark:text-white">
+                                    <a href="./manage/{{room.id}}">{{room.num}}</a>
+                                </p>
+                                <p class="mb-2 text-sm font-normal">
+                                    {% if room.owner %}
+                                    <a href="./manage/{{room.id}}" class="hover:underline">{{room.owner}}</a>
+                                    {% else %}
+                                    <a href="./manage/{{room.id}}" class="hover:underline">No Owner</a>
+                                    {% endif %}
+                                </p>
+                                <p class="text-sm font-base">Type: {{room.type}}</p>
+                                <p class="mb-2 text-sm font-base">Status: {{room.status}}</p>
+                                <p class="mb-2 text-base font-semibold text-gray-900">{{room.housekeeping_status}}</p>
+                                <div class="flex pt-2">
+                                    <button onclick="cleanroom('{{room.id}}')" type="button" class="inline-flex items-center justify-center w-full px-5 py-2 mr-2 text-xs font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Clean Room</button>
+                                    <button type="button" class="inline-flex items-center justify-center w-full px-5 py-2 mr-2 text-xs font-medium text-red-600 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Reset Status</button>
+                                </div>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        {% endfor %}
+                        <div class="node1 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node2 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node3 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node4 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node5 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node6 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node7 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node8 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node9 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node10 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node11 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node12 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node13 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node14 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node15 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node16 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node17 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node18 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node19 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node20 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div id="line_container4">
+                        </div>
+                        <div class="stairs1 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs1 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs10"></div>
+                        <div data-popover id="popover-stairs10" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        <div class="stairs2 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs2 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs11"></div>
+                        <div data-popover id="popover-stairs11" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        <div class="stairs3 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs3 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs12"></div>
+                        <div data-popover id="popover-stairs12" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                </div>
+                <div class="hidden container5 rounded-xl shadow-md" id="floor5" role="tabpanel" aria-labelledby="floor5-tab">
+                    <p class="LarkeNeueBold text-5xl floor1text uppercase">Floor 5</p>
+                    {% for room in floor5 %}
+                        <div class="ping{{room.num}} w-2.5 h-2.5 rounded-full bg-{{ get_status_colour(room.housekeeping_status) }} animate-ping"></div>
+                        <div data-popover-target="popover-ping{{room.num}}" class="ping{{room.num}} w-2.5 h-2.5 rounded-full bg-{{ get_status_colour(room.housekeeping_status) }}"></div>
+                        <div data-popover id="popover-ping{{room.num}}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+                            <div class="p-3">
+                                <div class="flex items-center justify-between mb-2">
+                                    <a href="./manage/{{room.id}}">
+                                        <img class="w-10 h-10 rounded-full" src="{{ get_owner_image(room.owner) }}">
+                                    </a>
+                                </div>
+                                <p class="text-base font-semibold leading-none text-gray-900 dark:text-white">
+                                    <a href="./manage/{{room.id}}">{{room.num}}</a>
+                                </p>
+                                <p class="mb-2 text-sm font-normal">
+                                    {% if room.owner %}
+                                    <a href="./manage/{{room.id}}" class="hover:underline">{{room.owner}}</a>
+                                    {% else %}
+                                    <a href="./manage/{{room.id}}" class="hover:underline">No Owner</a>
+                                    {% endif %}
+                                </p>
+                                <p class="text-sm font-base">Type: {{room.type}}</p>
+                                <p class="mb-2 text-sm font-base">Status: {{room.status}}</p>
+                                <p class="mb-2 text-base font-semibold text-gray-900">{{room.housekeeping_status}}</p>
+                                <div class="flex pt-2">
+                                    <button onclick="cleanroom('{{room.id}}')" type="button" class="inline-flex items-center justify-center w-full px-5 py-2 mr-2 text-xs font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Clean Room</button>
+                                    <button type="button" class="inline-flex items-center justify-center w-full px-5 py-2 mr-2 text-xs font-medium text-red-600 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Reset Status</button>
+                                </div>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        {% endfor %}
+                        <div class="node1 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node2 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node3 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node4 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node5 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node6 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node7 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node8 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node9 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node10 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node11 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node12 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node13 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node14 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node15 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node16 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node17 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node18 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node19 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div class="node20 w-2 h-2 rounded-full bg-gray-500"></div>
+                        <div id="line_container5">
+                        </div>
+                        <div class="stairs1 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs1 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs13"></div>
+                        <div data-popover id="popover-stairs13" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        <div class="stairs2 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs2 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs14"></div>
+                        <div data-popover id="popover-stairs14" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                        <div class="stairs3 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                        <div class="stairs3 w-2 h-2 rounded-full bg-blue-500" data-popover-target="popover-stairs15"></div>
+                        <div data-popover id="popover-stairs15" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Stairs</h3>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Stair access for Guests and Housekeepers, shortest path will be calculated from these points.</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+        fetch('/api/get_routes', {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            }
+            })
+            .then(response => response.json())
+            .then(data => {
+            floor1 = data["Floor 1"]
+            floor2 = data["Floor 2"]
+            floor3 = data["Floor 3"]
+            floor4 = data["Floor 4"]
+            floor5 = data["Floor 5"]
+            if (floor1.length != null) {
+                const obj1 = JSON.parse(floor1)
+                list = obj1['path']
+                if (obj1['type'] == "left" ) {
+                    list[0] = "stairs1"
+                } else if (obj1['type'] == "central") {
+                    list[0] = "stairs2"
+                } else if (obj1['type'] == "right") {
+                    list[0] = "stairs3"
+                } else {
+                    list[0] = "stairs2"
+                }
+                console.log(list[0])
+                for (var i = 0; i < list.length; i++) {
+                    var newLine = $(`<svg id="svg"><line id="line" class="line${i}"/></svg>`);
+                    newLine.appendTo('#line_container');
+                } 
+                const length = list.length-1;
+                for (var i = 0; i < length; i++) {
+                    var obj = list[i];
+                    var line = $(`.line${i}`);
+                    var div1 = $(`.${list[0]}`);
+                    var div2 = $(`.${list[1]}`);
+                    var x1 = div1.position().left + (div1.width()/2);
+                    var y1 = div1.position().top + (div1.height()/2);
+                    var x2 = div2.position().left + (div2.width()/2);
+                    var y2 = div2.position().top + (div2.height()/2);
+                    line.attr('x1',x1).attr('y1',y1).attr('x2',x2).attr('y2',y2);
+                    list.shift()
+                }
+            }
+            if (floor2.length != null) {
+                const obj1 = JSON.parse(floor2)
+                list = obj1['path']
+                if (obj1['type'] == "left" ) {
+                    list[0] = "stairs1"
+                } else if (obj1['type'] == "central") {
+                    list[0] = "stairs2"
+                } else if (obj1['type'] == "right") {
+                    list[0] = "stairs3"
+                } else {
+                    list[0] = "stairs"
+                }
+                for (var i = 0; i < list.length; i++) {
+                    var newLine = $(`<svg id="svg"><line id="line" class="line${i}_2"/></svg>`);
+                    newLine.appendTo('#line_container2');
+                } 
+                const length = list.length-1;
+                for (var i = 0; i < length; i++) {
+                    var obj = list[i];
+                    var line = $(`.line${i}_2`);
+                    var div1 = $(`.${list[0]}`);
+                    var div2 = $(`.${list[1]}`);
+                    var x1 = div1.position().left + (div1.width()/2);
+                    var y1 = div1.position().top + (div1.height()/2);
+                    var x2 = div2.position().left + (div2.width()/2);
+                    var y2 = div2.position().top + (div2.height()/2);
+                    line.attr('x1',x1).attr('y1',y1).attr('x2',x2).attr('y2',y2);
+                    list.shift()
+                }
+            }
+            if (floor3.length != null) {
+                const obj1 = JSON.parse(floor3)
+                list = obj1['path']
+                if (obj1['type'] == "left" ) {
+                    list[0] = "stairs1"
+                } else if (obj1['type'] == "central") {
+                    list[0] = "stairs2"
+                } else if (obj1['type'] == "right") {
+                    list[0] = "stairs3"
+                } else {
+                    list[0] = "stairs"
+                }
+                for (var i = 0; i < list.length; i++) {
+                    var newLine = $(`<svg id="svg"><line id="line" class="line${i}_3"/></svg>`);
+                    newLine.appendTo('#line_container3');
+                } 
+                const length = list.length-1;
+                for (var i = 0; i < length; i++) {
+                    var obj = list[i];
+                    var line = $(`.line${i}_3`);
+                    var div1 = $(`.${list[0]}`);
+                    var div2 = $(`.${list[1]}`);
+                    var x1 = div1.position().left + (div1.width()/2);
+                    var y1 = div1.position().top + (div1.height()/2);
+                    var x2 = div2.position().left + (div2.width()/2);
+                    var y2 = div2.position().top + (div2.height()/2);
+                    line.attr('x1',x1).attr('y1',y1).attr('x2',x2).attr('y2',y2);
+                    list.shift()
+                }
+            }
+            if (floor4.length != null) {
+                const obj1 = JSON.parse(floor4)
+                list = obj1['path']
+                if (obj1['type'] == "left" ) {
+                    list[0] = "stairs1"
+                } else if (obj1['type'] == "central") {
+                    list[0] = "stairs2"
+                } else if (obj1['type'] == "right") {
+                    list[0] = "stairs3"
+                } else {
+                    list[0] = "stairs"
+                }
+                for (var i = 0; i < list.length; i++) {
+                    var newLine = $(`<svg id="svg"><line id="line" class="line${i}_4"/></svg>`);
+                    newLine.appendTo('#line_container4');
+                } 
+                const length = list.length-1;
+                for (var i = 0; i < length; i++) {
+                    var obj = list[i];
+                    var line = $(`.line${i}_4`);
+                    var div1 = $(`.${list[0]}`);
+                    var div2 = $(`.${list[1]}`);
+                    var x1 = div1.position().left + (div1.width()/2);
+                    var y1 = div1.position().top + (div1.height()/2);
+                    var x2 = div2.position().left + (div2.width()/2);
+                    var y2 = div2.position().top + (div2.height()/2);
+                    line.attr('x1',x1).attr('y1',y1).attr('x2',x2).attr('y2',y2);
+                    list.shift()
+                }
+            }
+            if (floor5.length != null) {
+                const obj1 = JSON.parse(floor5)
+                list = obj1['path']
+                if (obj1['type'] == "left" ) {
+                    list[0] = "stairs1"
+                } else if (obj1['type'] == "central") {
+                    list[0] = "stairs2"
+                } else if (obj1['type'] == "right") {
+                    list[0] = "stairs3"
+                } else {
+                    list[0] = "stairs"
+                }
+                for (var i = 0; i < list.length; i++) {
+                    var newLine = $(`<svg id="svg"><line id="line" class="line${i}_5"/></svg>`);
+                    newLine.appendTo('#line_container5');
+                } 
+                const length = list.length-1;
+                for (var i = 0; i < length; i++) {
+                    var obj = list[i];
+                    var line = $(`.line${i}_5`);
+                    var div1 = $(`.${list[0]}`);
+                    var div2 = $(`.${list[1]}`);
+                    var x1 = div1.position().left + (div1.width()/2);
+                    var y1 = div1.position().top + (div1.height()/2);
+                    var x2 = div2.position().left + (div2.width()/2);
+                    var y2 = div2.position().top + (div2.height()/2);
+                    line.attr('x1',x1).attr('y1',y1).attr('x2',x2).attr('y2',y2);
+                    list.shift()
+                }
+            }
+            })
+            .catch((error) => {
+            console.error('Error:', error);
+            });
+</script>
+<style>
+    #svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+    #line {
+        stroke: rgb(59 130 246);
+        stroke-width: 2px;
+        pointer-events: none;
+    }
+</style>
+<script>
+    function cleanroom(roomid) {
+        let data={'id': roomid};
+        fetch('/api/CleanRoom/'+roomid, {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+          });
+          setTimeout(function(){
+            window.location.reload();
+       }, 500);
+    }
+</script>
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />-->
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='css/pings.css')}}">
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<!-- background-image: url("./static/img/Floor1.png");
+max-width: 768.69px;
+max-height: 589.61;
+-->
+<style>
+    .tooltip-arrow,.tooltip-arrow:before{background:inherit;height:8px;position:absolute;width:8px}.tooltip-arrow{visibility:hidden}.tooltip-arrow:before{content:"";transform:rotate(45deg);visibility:visible}[data-tooltip-style^=light]+.tooltip>.tooltip-arrow:before{border-color:#e5e7eb;border-style:solid}[data-tooltip-style^=light]+.tooltip[data-popper-placement^=top]>.tooltip-arrow:before{border-bottom-width:1px;border-right-width:1px}[data-tooltip-style^=light]+.tooltip[data-popper-placement^=right]>.tooltip-arrow:before{border-bottom-width:1px;border-left-width:1px}[data-tooltip-style^=light]+.tooltip[data-popper-placement^=bottom]>.tooltip-arrow:before{border-left-width:1px;border-top-width:1px}[data-tooltip-style^=light]+.tooltip[data-popper-placement^=left]>.tooltip-arrow:before{border-right-width:1px;border-top-width:1px}.tooltip[data-popper-placement^=top]>.tooltip-arrow{bottom:-4px}.tooltip[data-popper-placement^=bottom]>.tooltip-arrow{top:-4px}.tooltip[data-popper-placement^=left]>.tooltip-arrow{right:-4px}.tooltip[data-popper-placement^=right]>.tooltip-arrow{left:-4px}.tooltip.invisible>.tooltip-arrow:before{visibility:hidden}[data-popper-arrow],[data-popper-arrow]:before{background:inherit;height:8px;position:absolute;width:8px}[data-popper-arrow]{visibility:hidden}[data-popper-arrow]:after,[data-popper-arrow]:before{content:"";transform:rotate(45deg);visibility:visible}[data-popper-arrow]:after{background:inherit;height:9px;position:absolute;width:9px}[role=tooltip]>[data-popper-arrow]:before{border-color:#e5e7eb;border-style:solid}.dark [role=tooltip]>[data-popper-arrow]:before{border-color:#4b5563;border-style:solid}[role=tooltip]>[data-popper-arrow]:after{border-color:#e5e7eb;border-style:solid}.dark [role=tooltip]>[data-popper-arrow]:after{border-color:#4b5563;border-style:solid}[data-popover][role=tooltip][data-popper-placement^=top]>[data-popper-arrow]:after,[data-popover][role=tooltip][data-popper-placement^=top]>[data-popper-arrow]:before{border-bottom-width:1px;border-right-width:1px}[data-popover][role=tooltip][data-popper-placement^=right]>[data-popper-arrow]:after,[data-popover][role=tooltip][data-popper-placement^=right]>[data-popper-arrow]:before{border-bottom-width:1px;border-left-width:1px}[data-popover][role=tooltip][data-popper-placement^=bottom]>[data-popper-arrow]:after,[data-popover][role=tooltip][data-popper-placement^=bottom]>[data-popper-arrow]:before{border-left-width:1px;border-top-width:1px}[data-popover][role=tooltip][data-popper-placement^=left]>[data-popper-arrow]:after,[data-popover][role=tooltip][data-popper-placement^=left]>[data-popper-arrow]:before{border-right-width:1px;border-top-width:1px}[data-popover][role=tooltip][data-popper-placement^=top]>[data-popper-arrow]{bottom:-5px}[data-popover][role=tooltip][data-popper-placement^=bottom]>[data-popper-arrow]{top:-5px}[data-popover][role=tooltip][data-popper-placement^=left]>[data-popper-arrow]{right:-5px}[data-popover][role=tooltip][data-popper-placement^=right]>[data-popper-arrow]{left:-5px}[role=tooltip].invisible>[data-popper-arrow]:after,[role=tooltip].invisible>[data-popper-arrow]:before{visibility:hidden}*,
+</style> <!-- Above is the css for the arrows without all the other flowbite stuff messing with tailwind -->
+<style>
+    .container {
+        position: absolute;
+        width: 768.69px;
+        height: 589.61px;
+        background-color: white;
+        background-image: url("./static/img/floor1(1).png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+    .container2 {
+        position: absolute;
+        width: 768.69px;
+        height: 589.61px;
+        background-color: white;
+        background-image: url("./static/img/floor2.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+    .container3 {
+        position: absolute;
+        width: 768.69px;
+        height: 589.61px;
+        background-color: white;
+        background-image: url("./static/img/floor3.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+    .container4 {
+        position: absolute;
+        width: 768.69px;
+        height: 589.61px;
+        background-color: white;
+        background-image: url("./static/img/floor4.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+    .container5 {
+        position: absolute;
+        width: 768.69px;
+        height: 589.61px;
+        background-color: white;
+        background-image: url("./static/img/floor5.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+    .stairs1 {
+        position: absolute;
+        left: 14.1202428807%;
+        top: 64.52779634%;
+    }
+    .stairs2 {
+        position: absolute;
+        left: 50.87%;
+        top: 56.6564254338%;
+    }
+    .stairs3 {
+        position: absolute;
+        left: 66.4970075063%;
+        top: 11.5918581774%;
+    }
+</style>
+<style>
+    .node1 {
+        position: absolute;
+        left: 37.5%;
+        top: 46.25%;
+        opacity: 0.5;
+    }
+    .node2 {
+        position: absolute;
+        left: 33.25%;
+        top: 46%;
+        opacity: 0.5;
+    }
+    .node3 {
+        position: absolute;
+        left: 29.5%;
+        top: 46%;
+        opacity: 0.5;
+    }
+    .node4 {
+        position: absolute;
+        left: 26%;
+        top: 46%;
+        opacity: 0.5;
+    }
+    .node5 {
+        position: absolute;
+        left: 27.75%;
+        top: 50%;
+        opacity: 0.5;
+    }
+    .node6 {
+        position: absolute;
+        left: 27.75%;
+        top: 57%;
+        opacity: 0.5;
+    }
+    .node7 {
+        position: absolute;
+        left: 27.75%;
+        top: 64.45%;
+        opacity: 0.5;
+    }
+    .node8 {
+        position: absolute;
+        left: 21%;
+        top: 64.45%;
+        opacity: 0.5;
+    }
+    .node9 {
+        position: absolute;
+        left: 37%;
+        top: 64.45%;
+        opacity: 0.5;
+    }
+    .node10 {
+        position: absolute;
+        left: 42.3%;
+        top: 64.45%;
+        opacity: 0.5;
+    }
+    .node11 {
+        position: absolute;
+        left: 49.2%;
+        top: 64.45%;
+        opacity: 0.5;
+    }
+    .node12 {
+        position: absolute;
+        left: 58%;
+        top: 64.45%;
+        opacity: 0.5;
+    }
+    .node13 {
+        position: absolute;
+        left: 73.75%;
+        top: 64.45%;
+        opacity: 0.5;
+    }
+    .node14 {
+        position: absolute;
+        left: 74.75%;
+        top: 68.75%;
+        opacity: 0.5;
+    }
+    .node15 {
+        position: absolute;
+        left: 79.75%;
+        top: 68.75%;
+        opacity: 0.5;
+    }
+    .node16 {
+        position: absolute;
+        left: 87.75%;
+        top: 68.9%;
+        opacity: 0.5;
+    }
+    .node17 {
+        position: absolute;
+        left: 72%;
+        top: 50%;
+        opacity: 0.5;
+    }
+    .node18 {
+        position: absolute;
+        left: 69.75%;
+        top: 33.5%;
+        opacity: 0.5;
+    }
+    .node19 {
+        position: absolute;
+        left: 68.3%;
+        top: 22.5%;
+        opacity: 0.5;
+    }
+    .node20 {
+        position: absolute;
+        left: 65.5%;
+        top: 17.5%;
+        opacity: 0.5;
+    }
+</style>
+{% endblock %}

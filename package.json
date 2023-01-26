@@ -1,0 +1,32 @@
+{
+  "name": "flask-tailwind",
+  "version": "1.0.0",
+  "description": "Python Flask and Tailwind CSS Initial Projects",
+  "main": "tailwind.config.js",
+  "dependencies": {
+    "autoprefixer": "^10.3.6",
+    "chart.js": "^2.9.4",
+    "daisyui": "^2.18.1",
+    "postcss": "^8.3.8",
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^2.2.16",
+    "tw-elements": "^1.0.0-alpha12"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukxee2/NEA-Project.git"
+  },
+  "keywords": [
+    "flask",
+    "tailwind"
+  ],
+  "author": "Luke Rogers (lukxee2)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lukxee2/NEA-Project/issues"
+  },
+  "homepage": "https://github.com/lukxee2/NEA-Project"
+}

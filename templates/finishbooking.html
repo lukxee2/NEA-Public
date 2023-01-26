@@ -1,0 +1,372 @@
+{% extends "layout.html" %} <!-- homelayout.html -->
+{% block body %}
+
+<!-- Container for demo purpose -->
+<div>
+
+	<!-- Section: Design Block -->
+	<section class="mb-11">
+  
+	  <nav class="navbar navbar-expand-lg shadow-md py-2 bg-white relative flex items-center w-full justify-between">
+		<div class="px-6 w-full flex flex-wrap items-center justify-between">
+		  <div class="flex items-center">
+			<button
+			  class="navbar-toggler border-0 py-3 lg:hidden leading-none text-xl bg-transparent text-gray-600 hover:text-gray-700 focus:text-gray-700 transition-shadow duration-150 ease-in-out mr-2"
+			  type="button"
+			  data-bs-toggle="collapse"
+			  data-bs-target="#navbarSupportedContentY"
+			  aria-controls="navbarSupportedContentY"
+			  aria-expanded="false"
+			  aria-label="Toggle navigation"
+			>
+			  <svg
+				aria-hidden="true"
+				focusable="false"
+				data-prefix="fas"
+				class="w-5"
+				role="img"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 448 512"
+			  >
+				<path
+				  fill="currentColor"
+				  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+				></path>
+			  </svg>
+			</button>
+			<img class="ml-5 mr-2 h-12" src="../static/img/gohotel logo.png"> 
+			<p class="nav-link block ViceCitySans text-2xl lg:px-2 py-2 mr-10 titlecolor">goHotel</p>
+		  </div>
+		  <div class="navbar-collapse collapse grow items-center" id="navbarSupportedContentY">
+			<ul class="navbar-nav mr-auto gap-5 lg:flex lg:flex-row">
+			  <li class="nav-item">
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Hotels</a>
+			  </li>
+			  <li class="nav-item mb-2 lg:mb-0">
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Contact</a>
+			  </li>
+			  <li class="nav-item mb-2 lg:mb-0">
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+	  </nav>
+	</section>
+
+<div class="container">
+	<div class="grid grid-cols-2 gap-4">
+        <div class="px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">
+            <div class="flex flex-col justify-start items-start w-full space-y-9 mb-12">
+                <div class="flex justify-start flex-col items-start space-y-2">
+					<a href="{{ url_for('root') }}">
+                    <button class="flex flex-row items-center text-gray-600 dark:text-white hover:text-gray-500 space-x-1">
+                        <svg class="fill-stroke" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.91681 7H11.0835" stroke="currentColor" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M2.91681 7L5.25014 9.33333" stroke="currentColor" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M2.91681 7.00002L5.25014 4.66669" stroke="currentColor" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <p class="text-sm leading-none">Back</p>
+                    </button>
+				</a>
+                    <p class="text-2xl lg:text-3xl font-semibold leading-7 lg:leading-9 text-gray-800 dark:text-gray-50 pt-5">Finish Booking</p>
+                </div>
+    
+                <div class="flex flex-col xl:flex-row justify-center xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6 w-full">
+    
+                    <div class="p-8 bg-gray-100 dark:bg-gray-800 flex flex-col lg:w-full pr-12"> <!--xl:w-3/5-->
+						<a>
+                        <button onclick="redirect()" class="border border-transparent hover:border-gray-300 bg-gray-900 dark:bg-white dark:hover:bg-gray-900 dark:hover:border-gray-900 dark:text-gray-900 dark:hover:text-white hover:bg-white text-white hover:text-gray-900 flex flex-row justify-center items-center space-x-2 py-4 rounded-md w-full">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+								</svg>								  
+                            </div>
+                            <div>
+                                <p class="text-base leading-4">Login for QuickPay</p>
+                            </div>
+                        </button>
+					</a>
+    
+                        <div class="flex flex-row justify-center items-center mt-6">
+                            <hr class="border w-full" />
+                            <p class="flex flex-shrink-0 px-4 text-base leading-4 text-gray-600 dark:text-white">or enter details</p>
+                            <hr class="border w-full" />
+                        </div>
+						
+						<form method="POST" action="">
+							{{ form.hidden_tag() }}
+						<fieldset>
+						{% for error in form.email.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+						{{ form.email.label(class="font-semibold text-base text-gray-600 pb-1 pt-2 block") }}
+						{{ form.email(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+    
+						<!--<div class="form-check form-switch">
+							<input class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+							<label class="form-check-label inline-block text-gray-600 pl-2 font-semibold text-sm" for="flexSwitchCheckChecked">Recieve room updates</label>
+						</div>-->
+
+						<div class="flex flex-row justify-center items-center mt-6">
+                            <hr class="border w-full" />
+                        </div>
+
+						{% for error in form.firstname.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+						{% for error in form.lastname.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+						<div class="grid grid-cols-2 gap-4 pt-5">
+							<div class="...">
+								{{ form.firstname.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+								{{ form.firstname(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+							</div>
+							<div class="...">
+								{{ form.lastname.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+								{{ form.lastname(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+							</div>
+						</div>
+
+						{% for error in form.address.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+						{{ form.address.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+						{{ form.address(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+    
+						{% for error in form.housenum.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+                        {{ form.housenum.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+						{{ form.housenum(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+    
+						{% for error in form.city.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+						{% for error in form.county.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+                        <div class="grid grid-cols-2 gap-4 pt-5">
+							<div class="...">
+								{{ form.city.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+								{{ form.city(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+							</div>
+							<div class="...">
+								{{ form.county.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+								{{ form.county(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+							</div>
+						</div>
+
+						{% for error in form.residence.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+						{% for error in form.postcode.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+						<div class="grid grid-cols-2 gap-4 pt-5">
+							<div class="...">
+								{{ form.residence.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+								{{ form.residence(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+							</div>
+							<div class="...">
+								{{ form.postcode.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+								{{ form.postcode(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+							</div>
+						</div>
+
+						{% for error in form.phone.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+						{{ form.phone.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }} <div class="text-sm text-red-400 font-extralight">Optional</div>
+						{{ form.phone(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+						
+						{% for error in form.submit.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                        {% endfor %}
+                        <button class="mt-8 border border-transparent hover:border-gray-300 dark:bg-white dark:hover:bg-gray-900 dark:text-gray-900 dark:hover:text-white dark:border-transparent bg-gray-900 hover:bg-white text-white hover:text-gray-900 flex justify-center items-center py-4 rounded-md w-full">
+                            <div>
+								{{ form.submit(class="text-base leading-4") }}
+                            </div>
+                        </button>
+					</fieldset>
+					</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="flex flex-col xl:flex-row xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6 w-full">
+			<div class="p-8 bg-gray-100 dark:bg-gray-800 flex flex-col lg:w-full pr-12 "> <!--xl:w-3/5-->
+			<p class="text-2xl lg:text-3xl font-semibold leading-7 lg:leading-9 text-gray-800 dark:text-gray-50 pt-5">Room summary</p>
+			<div class="py-7"></div>
+			<div class="bg-white px-4 md:px-6 2xl:px-0 2xl:mx-auto 2xl:container space-x-2 py-4 rounded-md w-full ring-1 ring-gray-300">
+				<div class="font-semibold text-lg">Room</div>
+				<div class="text-gray-600 font-normal text-base py-1">{{ type }}</div>
+				<div class="text-gray-600 font-normal text-base pb-1">{{ children+adults }} Occupants</div>
+				<div class="text-gray-600 font-normal text-base pb-1">{{ checkin }} - {{ checkout }}</div>
+				<div class="text-gray-900 font-semibold text-base pt-8">{{ price }}</div>
+
+				<div class="flex flex-row justify-center items-center pt-6 pb-5">
+					<hr class="border bg-gray-200 w-full" />
+				</div>
+				<div class="font-semibold text-lg pb-1">Services</div>
+				<div class="text-gray-600 font-normal text-base pl-2">Housekeeping<br>
+					Breakfast & Dinner<br>
+					Air Conditioning<br>
+					Swimming<br>
+					Wifi<br>
+				</div>
+				<div class="text-gray-900 font-semibold text-base pt-8">Free</div>
+				<div class="flex flex-row justify-center items-center pt-6 pb-5">
+					<hr class="border bg-gray-200 w-full" />
+				</div>
+				<div class="text-gray-900 font-semibold text-base pt-1">Total  <span class="font-normal text-gray-600 pl-3">{{ price }}</span></div>
+				<div class="text-sm font-thin text-gray-400 py-5">
+					Instructions on how to print your room key on site will be sent to your email
+				</div>
+			</div>
+		</div>
+		</div>
+    </div>
+    <script>let closeIcon = document.getElementById("closeIcon");
+let openIcon = document.getElementById("openIcon");
+let dropdown = document.getElementById("dropdown");
+let text = document.getElementById("changetext");
+
+const showMenu = (flag) => {
+  if (flag) {
+    closeIcon.classList.toggle("hidden");
+    openIcon.classList.toggle("hidden");
+    dropdown.classList.toggle("hidden");
+  } else {
+    closeIcon.classList.toggle("hidden");
+    openIcon.classList.toggle("hidden");
+    dropdown.classList.toggle("hidden");
+  }
+};
+
+const changeText = (country) => {
+  text.innerHTML = country;
+  closeIcon.classList.toggle("hidden");
+  openIcon.classList.toggle("hidden");
+  dropdown.classList.toggle("hidden");
+};
+</script>
+<!-- url_for('finishbooking')+f"?adults={form.adults.data}&children={form.children.data}&checkin={form.checkin.data}&checkout={form.checkout.data}" -->
+<script type="text/javascript">
+function redirect() {
+	window.location.href = '{{url_for("bookingredirect")}}?adults={{adults}}&children={{children}}&checkin={{checkin}}&checkout={{checkout}}'
+	}
+</script>
+
+{% endblock %}
+
+{% block footer %}
+<footer class="text-center lg:text-left bg-white text-gray-600">
+	<div class="mx-6 py-10 text-center md:text-left">
+	  <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+		<div class="">
+		  <h6 class="
+			  uppercase
+			  font-semibold
+			  mb-4
+			  flex
+			  items-center
+			  justify-center
+			  md:justify-start
+			">
+			goHotel 
+		  </h6>
+		  <p>
+			Why stick to old boring booking services, our bespoke systems will make your stay a treat from start to end. 
+		  </p>
+		</div>
+		<div class="">
+		  <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+			Rooms
+		  </h6>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Single</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Double</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Triple</a>
+		  </p>
+		  <p>
+			<a href="#!" class="text-gray-600">Quad</a>
+		  </p>
+		</div>
+		<div class="">
+		  <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+			Useful links
+		  </h6>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Hotels</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Contact</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">About</a>
+		  </p>
+		  <p>
+			<a href="#!" class="text-gray-600">Privacy Policy</a>
+		  </p>
+		</div>
+		<div class="">
+		  <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+			Contact
+		  </h6>
+		  <p class="flex items-center justify-center md:justify-start mb-4">
+			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="home"
+			  class="w-4 mr-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+			  <path fill="currentColor"
+				d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z">
+			  </path>
+			</svg>
+			[random location]
+		  </p>
+		  <p class="flex items-center justify-center md:justify-start mb-4">
+			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope"
+			  class="w-4 mr-4" role="img" xmlns="http://www.w3.org/2000/svg"
+			  viewBox="0 0 512 512">
+			  <path fill="currentColor"
+				d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z">
+			  </path>
+			</svg>
+			info@example.com
+		  </p>
+		  <p class="flex items-center justify-center md:justify-start mb-4">
+			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
+			  class="w-4 mr-4" role="img" xmlns="http://www.w3.org/2000/svg"
+			  viewBox="0 0 512 512">
+			  <path fill="currentColor"
+				d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z">
+			  </path>
+			</svg>
+			+ 44
+		  </p>
+		</div>
+	  </div>
+	</div>
+	<div class="text-center p-6 bg-gray-100">
+	  <span>© 2022 Copyright </span>
+	  <a class="text-gray-600 font-semibold" href="#">goHotel</a>
+	</div>
+  </footer>
+{% endblock %}
+</div>
+</div>
+
+{% block script %}
+<!--<script src="../static/node_modules/tw-elements/dist/js/index.min.js"></script>-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+{% endblock %}

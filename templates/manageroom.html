@@ -1,0 +1,194 @@
+{% extends "dashlayout.html" %}
+
+{% block body %}
+<div class="lg:relative lg:p-5 lg:mt-14 absolute pt-1 mt-2 pl-5"> <!-- took a while but finally dialled in the responsive things, please don't delete istg -->
+	<div class="p-10 px-9">
+		<div class="flex flex-col xl:flex-row xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6">
+			<div class="px-8 bg-gray-100 dark:bg-gray-800 flex flex-col pr-14"> <!--xl:w-3/5-->
+			<p class="text-2xl mustica leading-9 text-gray-800">Manage room</p> <!--pt-5-->
+			<div class="py-3"></div> <!--pt-7-->
+			<div class="bg-white px-4 space-x-2 py-4 rounded-md ring-1 ring-gray-300">
+				<div class="mustica text-xl">Info</div>
+				{% if roomdata.status == "Vacant" %}
+				<div class="text-gray-600 font-normal text-base pl-2">Status: <span class="mustica text-green-600">{{roomdata.status}}</span><br>
+				</div>
+				{% elif  roomdata.status == "Occupied" %}
+				<div class="text-gray-600 font-normal text-base pl-2">Status: <span class="mustica text-red-600">{{roomdata.status}}</span><br>
+				</div>
+				{% else %}
+				<div class="text-gray-600 font-normal text-base pl-2">Status: <span class="mustica">Unknown</span><br>
+				</div>
+				{% endif %}
+				<div class="text-gray-600 font-normal text-base pl-2">ID: {{ roomdata.id }}<br></div>
+				<div class="text-gray-600 font-normal text-base pl-2">Number: {{ roomdata.num }} <span class="pl-5"></span> Floor: {{ roomdata.floor }}<br></div>
+				<div class="text-gray-600 font-normal text-base pl-2">Owner: {{ roomdata.owner }}<br></div>
+				<div class="mustica text-lg pt-8">Controls</div>
+				<div class="text-gray-600 mustica text-rg pt-3">Add Occupant</div>
+				<div class="pt-2 grid grid-cols-3 gap-2 w-72">
+					{% if roomdata.occupant == "" %}
+						<div class="col-span-2">
+						<input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@example.com" required="">
+						</div>
+						<div class="col-span-1">
+						<button onclick="add_occupant('{{ roomdata.num }}')" class="pt-2 bg-gray-900 ring-2 ring-gray-800 hover:bg-transparent hover:text-gray-900 focus:bg-gray-800 focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out font-semibold text-center inline-block ext-white w-full py-2.5 rounded-lg text-sm text-white">Add</button>
+						</div>
+					{% else %}
+						<!--<div class="col-span-3">
+							<div class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ roomdata.occupant }}
+								<button onclick="add_occupant('{{ roomdata.num }}')">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-gray-600 w-5 h-5 inline-block ">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+								  </svg>
+								</button>
+							</div>
+						</div>-->
+						<div class="col-span-2">
+							<div class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ roomdata.occupant }}</div>
+							</div>
+							<div class="col-span-1">
+							<button onclick="add_occupant('{{ roomdata.num }}')" class="pt-2 bg-gray-900 ring-2 ring-gray-800 hover:bg-transparent hover:text-gray-900 focus:bg-gray-800 focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out font-semibold text-center inline-block ext-white w-full py-2.5 rounded-lg text-sm text-white">Remove</button>
+							</div>
+					{% endif %}
+				</div>
+				<div class="pt-4">
+					<label class="text-gray-600 mustica text-rg pt-3 pb-3">Toggle Do Not Disturb</label><br>
+					<div class="pt-2">
+					<!--<button class="pt-1 transition duration-200 bg-gray-500 hover:bg-gray-600 focus:bg-gray-700 focus:shadow-sm focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50 text-white w-1/3 py-1 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">Turn on</button>-->
+					{% if roomdata.dnd == False %}
+						<button onclick="toggle_dnd('{{ roomdata.num }}')" class="pt-2 bg-gray-900 ring-2 ring-gray-800 hover:bg-transparent hover:text-gray-900 focus:bg-gray-800 focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out font-semibold text-center inline-block ext-white w-1/3 py-2.5 rounded-lg text-sm text-white">Turn on</button>
+					{% else %}
+						<button onclick="toggle_dnd('{{ roomdata.num }}')" class="pt-2 bg-gray-900 ring-2 ring-gray-800 hover:bg-transparent hover:text-gray-900 focus:bg-gray-800 focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out font-semibold text-center inline-block ext-white w-1/3 py-2.5 rounded-lg text-sm text-white">Turn off</button>
+					{% endif %}
+					</div>
+				</div>
+				<div class="pt-4">
+					<label class="text-gray-600 mustica text-rg pt-3 pb-3">Request Housekeeping</label><br>
+					<div class="pt-2">
+					<!--<button class="pt-1 transition duration-200 bg-gray-500 hover:bg-gray-600 focus:bg-gray-700 focus:shadow-sm focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50 text-white w-1/3 py-1 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">Turn on</button>-->
+					<button onclick="request_housekeeping('{{ roomdata.num }}')" class="pt-2 bg-gray-900 ring-2 ring-gray-800 hover:bg-transparent hover:text-gray-900 focus:bg-gray-800 focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out font-semibold text-center inline-block ext-white w-2/4 py-2.5 rounded-lg text-sm text-white">Send request</button>
+					</div>
+				</div>
+				<div class="flex flex-row justify-center items-center pt-6 pb-1">
+					<hr class="border bg-gray-200 w-full" />
+				</div>
+				
+				
+				<div class="pt-4">
+					<!--<label class="text-gray-600 font-semibold text-rg pt-3 pb-3">Danger Zone</label><br>-->
+					<div class="mustica text-lg">Danger Zone</div>
+					<div class="pt-4 pb-4">
+						<label class="text-gray-600 mustica text-rg pt-3 pb-3">Force Checkout</label><br>
+						<div class="pt-2">
+						<button onclick="checkout_user('{{ roomdata.num }}', '')" class="pt-2 bg-red-600 ring-2 ring-red-600 hover:bg-transparent hover:text-red-700 focus:bg-red-600 focus:text-white focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out font-semibold text-center inline-block ext-white w-2/4 py-2.5 rounded-lg text-sm text-white">Force Check-out</button>
+						</div>
+					</div>
+				</div>
+		</div>
+		</div>
+		</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    function checkout_user(roomnum, owner) {
+        let data={'num': roomnum, 'usr': owner};
+          console.log(data);
+          fetch('/api/CheckoutRequest', {
+          method: 'POST', // or 'PUT'
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+          });
+        setTimeout(function(){
+            window.location.href = "{{ url_for('home') }}"
+        }, 500);
+    }
+
+	function toggle_dnd(roomnum) {
+        let data={'num': roomnum};
+          console.log(data);
+          fetch('/api/toggleDND', {
+          method: 'POST', // or 'PUT'
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+          });
+        setTimeout(function(){
+            window.location.reload();
+        }, 500);
+    }
+
+	function request_housekeeping(roomnum) {
+        let data={'num': roomnum};
+          console.log(data);
+          fetch('/api/requesthousekeeping', {
+          method: 'POST', // or 'PUT'
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+          });
+        setTimeout(function(){
+            window.location.reload();
+        }, 500);
+    }
+
+	function add_occupant(roomnum) {
+		value = ""
+		if (document.getElementById("email")) {
+			value = document.getElementById("email").value;
+		}
+		let data={'num': roomnum, 'occupant': value};
+          console.log(data);
+          fetch('/api/addoccupant', {
+          method: 'POST', // or 'PUT'
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+          });
+        setTimeout(function(){
+            window.location.reload();
+        }, 500);
+	}
+</script>
+<style> 
+	@font-face {
+	  font-family: 'Mustica'; /*a name to be used later*/
+	  src: url('../static/fonts/MusticaproSemibold.ttf'); /*URL to font*/
+	}
+	@font-face {
+	  font-family: 'LarkeNeueBold'; /*a name to be used later*/
+	  src: url('../static/fonts/Larke Neue Bold.ttf'); /*URL to font*/
+	}
+	@font-face {
+	  font-family: 'LarkeNeueRegular'; /*a name to be used later*/
+	  src: url('../static/fonts/Larke Neue Regular.ttf'); /*URL to font*/
+	}
+	@font-face {
+	  font-family: 'LarkeNeueThin'; /*a name to be used later*/
+	  src: url('../static/fonts/Larke Neue Thin.ttf'); /*URL to font*/
+	}
+	@font-face {
+	  font-family: 'ViceCitySans'; /*a name to be used later*/
+	  src: url('../static/fonts/ViceCitySans.otf'); /*URL to font*/
+	}
+	.mustica {
+	  font-family: 'Mustica'
+	}
+	.LarkeNeueBold {font-family: 'LarkeNeueBold'}
+	.LarkeNeueRegular {font-family: 'LarkeNeueRegular'}
+	.LarkeNeueThin {font-family: 'LarkeNeueThin'}
+	.titlecolor {
+	  color: #232e40;
+	}
+	.ViceCitySans {font-family: 'ViceCitySans'}
+  </style>
+
+{% endblock %}

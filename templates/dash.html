@@ -1,0 +1,275 @@
+{% extends "dashlayout.html" %}
+
+{% block body %}
+<div class="lg:relative lg:p-5 lg:mt-14 absolute pt-1 mt-2 pl-5"> <!-- took a while but finally dialled in the responsive things, please don't delete istg -->
+	<div class="pt-4">
+		<span class="px-6 mustica text-2xl"> Hello, {{ current_user.username }}!</span><br>
+		</div>
+		<div class="px-6 LarkeNeueThin">Here's your {{ current_user.role }} dashboard</div>
+		<div class="p-6 px-9 xs:p-0 mx-auto ">
+			<div class="">
+				<h1 class="px-2 py-2 text-2xl mustica">Rooms ({{guestrooms|length}})</h1>
+				<div class="bg-white w-full rounded-lg px-5 py-5 shadow mb-5">
+					<div class="grid grid-cols-5 gap-3">
+					{% if not guestrooms %}
+						<div class="text-center w-64">
+							<div class="bg-white rounded-md pb-5">
+								<div class="mustica text-lg pt-2 text-white">ㅤ</div>
+								<div class="font-thin text-md pb-5 text-white">ㅤ</div>
+								<div class="text-md font-sans text-white">
+								<span class="text-xl font-semibold">ㅤ</span><br>
+								<span class="font-medium">ㅤ</span> ㅤ<br>
+								<span class="font-medium">ㅤ</span> ㅤ
+								</div>
+							</div>
+						</div>
+					{% endif %}
+					{% for room in guestrooms %}
+					<!--{{room}}-->
+					<div class="text-center w-64">
+						<a href="/manage/{{room.id}}">
+						<div class="hover:bg-gray-100 bg-gray-200 rounded-md pb-5">
+							<div class="mustica text-lg pt-2">{{ room.type }}</div>
+							<div class="font-thin text-md pb-5">{{ room.id }}</div>
+							<div class="text-md font-sans">
+							<span class="text-xl font-semibold text-gray-600">{{room.num}}</span><br>
+							<span class="font-medium">Check-in</span> {{ room.checkin }}<br>
+							<span class="font-medium">Check-out</span> {{ room.checkout }}
+							</div>
+						</a>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				</div>
+				<div>
+			</div>
+
+			{% if current_user.role == "Manager" or current_user.role == "Receptionist" or current_user.role == "Housekeeper" %}
+				<div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+				<div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2 ">
+					<p class="text-2xl sm:text-3xl leading-none mustica text-gray-900">Sales / Revenue</p>
+					<h3 class="text-base LarkeNeueThin text-gray-500">All time</h3>
+					<div id="graph"></div>
+				</div>
+				<div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
+				
+				<div class="mb-4 flex items-center justify-between">
+					<div class="flex-shrink-0">
+					<h3 class="text-xl LarkeNeueBold text-gray-900 mb-2">Latest Changes</h3>
+					<span class="text-base font-normal text-gray-500">This is a list of latest changes</span>
+					</div>
+					<div class="flex-shrink-0">
+					<!--<a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">View all</a>-->
+				</div>
+				</div>
+				
+				<div class="flex flex-col mt-8">
+				<div class="overflow-x-auto rounded-lg">
+				<div class="align-middle inline-block min-w-full">
+				<div class="shadow overflow-hidden sm:rounded-lg">
+					<table class="table-auto w-full">
+						<thead class="text-xs font-semibold text-gray-400 bg-gray-50">
+						
+							<tr>
+								<th class="p-4 whitespace-nowrap">
+									<div class="font-semibold text-left"></div>
+								</th>
+								<th class="p-4 whitespace-nowrap">
+									<div class="font-semibold text-left">ID</div>
+								</th>
+								<th class="p-4 whitespace-nowrap">
+									<div class="font-semibold text-left">Action</div>
+								</th>
+								<th class="p-4 whitespace-nowrap">
+									<div class="font-semibold text-center">Date</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody class="text-sm divide-y divide-gray-100">
+							{% for record in latestchanges %}
+							<tr>
+								<td class="p-4 whitespace-nowrap">
+									<div class="flex items-center">
+										<div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="{{ get_owner_image(record.email) }}" width="40" height="40" alt="Profile Picture"></div>
+									</div>
+								</td>
+								<td class="p-4 whitespace-nowrap">
+									<div class="text-left font-medium text-gray-500">{{record.id}}</div>
+								</td>
+								<td class="p-4 whitespace-nowrap">
+									{% if get_action(record.expired) == "Check-in" %}
+									<div class="font-medium text-center text-green-500">Check-in</div>
+									{% elif get_action(record.expired) == "Check-out" %}
+									<div class="font-medium text-center text-red-500">Check-out</div>
+									{% else %}
+									<div class="font-medium text-center text-gray-500">N/A</div>
+									{% endif %}
+								</td>
+								<td class="p-4 whitespace-nowrap">
+									{% if get_action(record.expired) == "Check-in" %}
+									<div class="font-medium text-center">{{record.checkin}}</div>
+									{% elif get_action(record.expired) == "Check-out" %}
+									<div class="font-medium text-center">{{record.checkout}}</div>
+									{% else %}
+									<div class="font-medium text-center text-gray-500">N/A</div>
+									{% endif %}
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				 </div>
+				</div>
+				</div>
+				</div>
+				</div>
+				<div id="synced-charts">
+				<div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+					<div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+						<div class=""> <!-- flex items-center -->
+							<p class="text-2xl sm:text-3xl leading-none mustica text-gray-900">Hotel Capacity</p>
+							<div class="flex-shrink-0">
+							<div id="radialBarBottom"></div>
+							</div>
+					</div>
+				</div>
+				<div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+				<div class=""> <!-- flex items-center -->
+				<p class="text-2xl absolute sm:text-3xl leading-none mustica text-gray-900">Requests</p>
+				<div class="flex-shrink-0 pt-2">
+					<div id="linechart"> </div>
+				</div>
+				</div>
+				</div>
+				<div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+				<div class=""> <!-- flex items-center -->
+				<p class="text-2xl absolute sm:text-3xl leading-none mustica text-gray-900">Monthly Sales</p>
+				<div class="flex-shrink-0">
+					<div id="chart6"></div>
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
+				
+				<div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+				<div class="flex items-center justify-between mb-4">
+				<h3 class="text-xl LarkeNeueBold leading-none text-gray-900">Latest Orders</h3>
+				<!--<a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2">
+				View all
+				</a>-->
+				</div>
+				<div class="flow-root overflow-x-auto">
+					<table class="table-auto w-full">
+						<thead class="text-xs font-semibold text-gray-400 bg-gray-50">
+						
+							<tr>
+								<th class="p-4 whitespace-nowrap">
+									<div class="font-semibold text-left">ID</div>
+								</th>
+								<th class="p-4 whitespace-nowrap">
+									<div class="font-semibold text-left">Email</div>
+								</th>
+								<th class="p-4 whitespace-nowrap">
+									<div class="font-semibold text-left">Spent</div>
+								</th>
+								<th class="p-4 whitespace-nowrap">
+									<div class="font-semibold text-center">Check-in</div>
+								</th>
+								<th class="p-4 whitespace-nowrap">
+									<div class="font-semibold text-center">Check-out</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody class="text-sm divide-y divide-gray-100">
+							{% for record in records %}
+							<tr>
+								<td class="p-4 whitespace-nowrap">
+									<div class="flex items-center">
+										<div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="{{ get_owner_image(record.email) }}" width="40" height="40" alt="Profile Picture"></div>
+										<div class="pl-2 font-medium text-gray-800">{{record.id}}</div>
+									</div>
+								</td>
+								<td class="p-4 whitespace-nowrap">
+									<div class="text-left">{{record.email}}</div>
+								</td>
+								<td class="p-4 whitespace-nowrap">
+									<div class="text-left font-medium text-green-500">£{{ format_price(record.type) }}</div>
+								</td>
+								<td class="p-4 whitespace-nowrap">
+									<div class="font-medium text-center">{{record.checkin}}</div>
+								</td>
+								<td class="p-4 whitespace-nowrap">
+									<div class="font-medium text-center">{{record.checkout}}</div>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				</div>
+				
+				<div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+					<div class="flex items-center justify-between mb-4">
+						<div class="flex-shrink-0">
+						<p class="text-2xl sm:text-3xl leading-none mustica text-gray-900">Orders by Room Type</p>
+						<h3 class="text-base LarkeNeueThin text-gray-500">All time</h3>
+						</div>
+						<!--<div class="flex items-center justify-end flex-1 text-green-500 text-base LarkeNeueBold">
+						12.5%
+						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+						</svg>
+						</div>-->
+						</div>
+						<div id="chart"></div>
+				</div>
+				</div>
+				</div>
+				{% endif %}
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="./static/js/charts.js"></script>
+<script src="./static/js/linechart.js"></script>
+<script src="./static/js/scripts.js"></script>
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />-->
+<!--<script src="./node_modules/chart.js/dist/Chart.js" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+	var xValues = ["Single", "Double", "Triple", "Quad"];
+	var yValues = [55, 49, 44, 24];
+	var barColors = [
+	  "#b91d47",
+	  "#00aba9",
+	  "#2b5797",
+	  "#FFBF00"
+	];
+
+	const ctx = document.getElementById('orderGraph').getContext('2d');
+	const myChart = new Chart(ctx, {
+		type: "pie",
+		data: {
+		  labels: xValues,
+		  datasets: [{
+			backgroundColor: barColors,
+			data: yValues
+		  }]
+		},
+		options: {
+		  title: {
+			display: false,
+			text: "World Wide Wine Production"
+		  }
+		}
+	  });
+	</script>-->
+{% endblock %}

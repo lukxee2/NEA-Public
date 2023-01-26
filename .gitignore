@@ -1,0 +1,7 @@
+node_modules
+oldtemplates
+flask-tailwind.log
+*.log
+*.lua
+.vscode
+__pycache__

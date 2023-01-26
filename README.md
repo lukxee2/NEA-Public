@@ -26,7 +26,7 @@ Login Page:
 Dashboard Page (1):
 <img src="https://cdn.discordapp.com/attachments/659031245996556325/1067832972960612433/Dashboard.png" alt="Dashboard.png"/>
 Dashboard Page (2):
-<img src="" alt="Dashboard2.png"/>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEX///+nxBvIAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC" alt="Dashboard2.png"/>
 Receptionist Page:
 <img src="https://cdn.discordapp.com/attachments/659031245996556325/1067832973883359363/Receptionist.png" alt="Receptionist.png"/>
 Housekeeping Page:

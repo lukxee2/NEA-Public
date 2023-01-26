@@ -1,0 +1,231 @@
+{% extends "dashlayout.html" %}
+
+{% block body %}
+<div class="lg:relative lg:p-5 lg:mt-14 absolute pt-1 mt-2 pl-5"> <!-- took a while but finally dialled in the responsive things, please don't delete istg -->
+    <div class="pt-4">
+        <span class="mustica px-6 text-2xl"> Receptionist Management </span><br>
+    </div>
+    <div class="px-6 LarkeNeueThin">Here you will be able to check people in and out at your will! You're lucky to have such power</div>
+    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center pt-3 px-8" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+        <li class="mr-2" role="presentation">
+            <button class="inline-block p-4 rounded-t-lg border-b-2" id="floor1-tab" data-tabs-target="#floor1" type="button" role="tab" aria-controls="profile" aria-selected="false">Floor 1</button>
+        </li>
+        <li class="mr-2" role="presentation">
+            <button class="inline-block p-4 rounded-t-lg border-b-2" id="floor2-tab" data-tabs-target="#floor2" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Floor 2</button>
+        </li>
+        <li class="mr-2" role="presentation">
+            <button class="inline-block p-4 rounded-t-lg border-b-2" id="floor3-tab" data-tabs-target="#floor3" type="button" role="tab" aria-controls="settings" aria-selected="false">Floor 3</button>
+        </li>
+        <li role="presentation">
+            <button class="inline-block p-4 rounded-t-lg border-b-2" id="floor4-tab" data-tabs-target="#floor4" type="button" role="tab" aria-controls="contacts" aria-selected="false">Floor 4</button>
+        </li>
+        <li role="presentation">
+            <button class="inline-block p-4 rounded-t-lg border-b-2" id="floor5-tab" data-tabs-target="#floor5" type="button" role="tab" aria-controls="contacts" aria-selected="false">Floor 5</button>
+        </li>
+    </ul>
+    <div class="px-8 pb-8 pt-4"> <!-- px-8 py-8 -->
+    <div class="rounded-lg bg-white w-auto h-auto p-5 shadow-md">
+        <p class="mustica px-6 text-3xl pb-4">Rooms <span class="text-2xl">({{allrooms|length}})</span></p>
+        <div class="hidden" id="floor1" role="tabpanel" aria-labelledby="floor1-tab">
+            <div class="grid lg:grid-cols-8 gap-2 grid-cols-4">
+                {% for room in floor1 %}
+                <a href="/manage/{{room.id}}">
+                {% if room.status == "Vacant" %}
+                <div class="w-32 h-32 p-5 bg-green-500 rounded-lg">
+                {% elif room.status == "Occupied" %}
+                <div class="w-32 h-32 p-5 bg-red-500 rounded-lg">
+                {% else %}
+                <div class="w-32 h-32 p-5 bg-gray-500 rounded-lg">
+                {% endif %}
+                    <p class="mustica text-center text-2xl text-white">{{room.num}}</p>
+                    <p class="LarkeNeueThin text-center text-sm text-white">{{room.id}}</p>
+                    <p class="mustica text-center pt-5 text-lg text-gray-200">{{room.status}}</p>
+                </div>
+                </a>
+                {% endfor %}
+            </div>  
+        </div> 
+        <div class="hidden" id="floor2" role="tabpanel" aria-labelledby="floor2-tab">
+            <div class="grid lg:grid-cols-8 gap-2 grid-cols-4">
+                {% for room in floor2 %}
+                <a href="/manage/{{room.id}}">
+                {% if room.status == "Vacant" %}
+                <div class="w-32 h-32 p-5 bg-green-500 rounded-lg">
+                {% elif room.status == "Occupied" %}
+                <div class="w-32 h-32 p-5 bg-red-500 rounded-lg">
+                {% else %}
+                <div class="w-32 h-32 p-5 bg-gray-500 rounded-lg">
+                {% endif %}
+                    <p class="mustica text-center text-2xl text-white">{{room.num}}</p>
+                    <p class="LarkeNeueThin text-center text-sm text-white">{{room.id}}</p>
+                    <p class="mustica text-center pt-5 text-lg text-gray-200">{{room.status}}</p>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="hidden" id="floor3" role="tabpanel" aria-labelledby="floor3-tab">
+            <div class="grid lg:grid-cols-8 gap-2 grid-cols-4">
+                {% for room in floor3 %}
+                <a href="/manage/{{room.id}}">
+                {% if room.status == "Vacant" %}
+                <div class="w-32 h-32 p-5 bg-green-500 rounded-lg">
+                {% elif room.status == "Occupied" %}
+                <div class="w-32 h-32 p-5 bg-red-500 rounded-lg">
+                {% else %}
+                <div class="w-32 h-32 p-5 bg-gray-500 rounded-lg">
+                {% endif %}
+                    <p class="mustica text-center text-2xl text-white">{{room.num}}</p>
+                    <p class="LarkeNeueThin text-center text-sm text-white">{{room.id}}</p>
+                    <p class="mustica text-center pt-5 text-lg text-gray-200">{{room.status}}</p>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="hidden" id="floor4" role="tabpanel" aria-labelledby="floor4-tab">
+            <div class="grid lg:grid-cols-8 gap-2 grid-cols-4">
+                {% for room in floor4 %}
+                <a href="/manage/{{room.id}}">
+                {% if room.status == "Vacant" %}
+                <div class="w-32 h-32 p-5 bg-green-500 rounded-lg">
+                {% elif room.status == "Occupied" %}
+                <div class="w-32 h-32 p-5 bg-red-500 rounded-lg">
+                {% else %}
+                <div class="w-32 h-32 p-5 bg-gray-500 rounded-lg">
+                {% endif %}
+                    <p class="mustica text-center text-2xl text-white">{{room.num}}</p>
+                    <p class="LarkeNeueThin text-center text-sm text-white">{{room.id}}</p>
+                    <p class="mustica text-center pt-5 text-lg text-gray-200">{{room.status}}</p>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="hidden" id="floor5" role="tabpanel" aria-labelledby="floor5-tab">
+            <div class="grid lg:grid-cols-8 gap-2 grid-cols-4">
+                {% for room in floor5 %}
+                <a href="/manage/{{room.id}}">
+                {% if room.status == "Vacant" %}
+                <div class="w-32 h-32 p-5 bg-green-500 rounded-lg">
+                {% elif room.status == "Occupied" %}
+                <div class="w-32 h-32 p-5 bg-red-500 rounded-lg">
+                {% else %}
+                <div class="w-32 h-32 p-5 bg-gray-500 rounded-lg">
+                {% endif %}
+                    <p class="mustica text-center text-2xl text-white">{{room.num}}</p>
+                    <p class="LarkeNeueThin text-center text-sm text-white">{{room.id}}</p>
+                    <p class="mustica text-center pt-5 text-lg text-gray-200">{{room.status}}</p>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div> 
+    <div class="px-8 py-4 grid grid-cols-2 gap-8"> <!-- px-8 py-8 -->
+        <div class="rounded-lg bg-white w-auto h-auto p-5 shadow-md">
+            <p class="mustica px-6 text-3xl pb-4">Create Booking</p>
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+            <fieldset>
+            {% for error in form.email.errors %}
+                <span class="text-sm text-red-500 py-2">{{ error }}</span>
+            {% endfor %}
+            {% for error in form.roomtype.errors %}
+                <span class="text-sm text-red-500 py-2">{{ error }}</span>
+            {% endfor %}
+            <div class="grid grid-cols-2 gap-4">
+                <div class="...">
+                    {{ form.email.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+                    {{ form.email(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+                </div>
+                <div class="...">
+                    {{ form.roomtype.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+                    {{ form.roomtype(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+                </div>
+            </div>
+            {% for error in form.checkin.errors %}
+                <span class="text-sm text-red-500 py-2">{{ error }}</span>
+            {% endfor %}
+            {% for error in form.checkout.errors %}
+                <span class="text-sm text-red-500 py-2">{{ error }}</span>
+            {% endfor %}
+            <div class="grid grid-cols-2 gap-4">
+                <div class="...">
+                    {{ form.checkin.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+                    {{ form.checkin(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+                </div>
+                <div class="...">
+                    {{ form.checkout.label(class="font-semibold text-sm text-gray-600 pb-1 pt-2 block") }}
+                    {{ form.checkout(class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm h-12 w-full") }}
+                </div>
+            </div>
+            <!--<div class="flex flex-row justify-center items-center mt-3">
+                <hr class="border w-full" />
+                <p class="flex flex-shrink-0 px-4 text-base leading-4 text-gray-600 dark:text-white">Optionally</p>
+                <hr class="border w-full" />
+            </div>
+            <label class="font-semibold text-sm text-gray-600 pb-1 block">Username (Connect to your account)</label>
+            <input class="border rounded-lg px-1.5 py-1 mb-5 text-sm h-12 w-full" type="text"></input>-->
+            {% for error in form.submit.errors %}
+				<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                    {% endfor %}
+                    {{ form.submit(class="mt-5 border border-transparent hover:border-gray-300 bg-gray-900 hover:bg-white text-white hover:text-gray-900 flex justify-center items-center py-4 rounded-md w-full") }}
+                    </div>
+                </fieldset>
+            </form>
+        <div class="rounded-lg bg-white w-auto h-auto p-5 shadow-md">
+            <p class="mustica px-6 text-3xl pb-4">Check-out Guest</p>
+            <label class="font-semibold text-sm text-gray-600 pb-1 block">Room number</label>
+            <input id="roomnum" class="border rounded-lg px-1.5 py-1 mb-5 text-sm h-12 w-full" type="text"></input>
+            <div class="flex flex-row justify-center items-center mt-3">
+                <hr class="border w-full" />
+                <p class="flex flex-shrink-0 px-4 text-base leading-4 text-gray-600 dark:text-white">or enter email</p>
+                <hr class="border w-full" />
+            </div>
+            <label class="font-semibold text-sm text-gray-600 pb-1 pt-2 block">Email</label>
+            <input id="username" class="border rounded-lg px-1.5 py-1 mb-5 text-sm h-12 w-full" type="text"></input>
+            <button type="button" onclick="checkout_user()" class="mt-2 border border-transparent hover:border-gray-300 dark:bg-white dark:hover:bg-gray-900 dark:text-gray-900 dark:hover:text-white dark:border-transparent bg-gray-900 hover:bg-white text-white hover:text-gray-900 flex justify-center items-center py-4 rounded-md w-full">
+                <span class="inline-block mr-2">Check-out</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 inline-block">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </button>
+        </div>
+    </div> 
+    </div> 
+    
+</div>
+
+</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+<!--<link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" />-->
+<script>
+    function checkout_user() {
+        let num = document.getElementById("roomnum").value;
+        let usr = document.getElementById("username").value;
+        let data={'num': num, 'usr': usr};
+          console.log(data);
+          fetch('/api/CheckoutRequest', {
+          method: 'POST', // or 'PUT'
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+          });
+        setTimeout(function(){
+            window.location.reload();
+        }, 500);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,340 @@
+<!doctype html>
+<html>
+
+<head>
+  {% block head %}
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoHotel | {{Name}}</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/tailwind.css')}}">
+    <link rel="icon" href="{{url_for('static',filename='img/favicon.ico')}}" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="{{url_for('static',filename='img/favicon.ico')}}">
+
+	<script
+            src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"
+            defer
+        ></script>
+		<script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>
+	<link rel="stylesheet" href="https://raw.githubusercontent.com/ThirusOfficial/side-navigation-tailwindcss-alpinejs/main/layouts/styles.css" />
+
+    <style>
+      .dropshadow {
+        text-shadow: 1px 1px 2px #000000;
+      }
+      .wdropshadow {
+        text-shadow: 0px 0px 3px #FFFFFF;
+      }
+
+      span {cursor:pointer; }
+      .number{
+        
+      }
+      .minus, .plus{
+        width:22px;
+        height:22px;
+        background:#f2f2f2;
+        border-radius:4px;
+        border:1px solid #ddd;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+      }
+      .inputnum{
+        height:25px;
+        width: 65px;
+        text-align: center;
+        font-size: 15px;
+        border:1px solid #ddd;
+        border-radius:4px;
+        display: inline-block;
+        vertical-align: middle;     
+      }
+	  .right-shadow {
+		box-shadow: 1px 0 10px -2px #000;
+	}
+    </style>
+    <style> 
+      @font-face {
+        font-family: 'Mustica'; /*a name to be used later*/
+        src: url('./static/fonts/MusticaproSemibold.ttf'); /*URL to font*/
+      }
+      @font-face {
+        font-family: 'LarkeNeueBold'; /*a name to be used later*/
+        src: url('./static/fonts/Larke Neue Bold.ttf'); /*URL to font*/
+      }
+      @font-face {
+        font-family: 'LarkeNeueRegular'; /*a name to be used later*/
+        src: url('./static/fonts/Larke Neue Regular.ttf'); /*URL to font*/
+      }
+      @font-face {
+        font-family: 'LarkeNeueThin'; /*a name to be used later*/
+        src: url('./static/fonts/Larke Neue Thin.ttf'); /*URL to font*/
+      }
+      @font-face {
+        font-family: 'ViceCitySans'; /*a name to be used later*/
+        src: url('./static/fonts/ViceCitySans.otf'); /*URL to font*/
+      }
+      .mustica {
+        font-family: 'Mustica'
+      }
+      .LarkeNeueBold {font-family: 'LarkeNeueBold'}
+      .LarkeNeueRegular {font-family: 'LarkeNeueRegular'}
+      .LarkeNeueThin {font-family: 'LarkeNeueThin'}
+      .titlecolor {
+        color: #232e40;
+      }
+      .ViceCitySans {font-family: 'ViceCitySans'}
+    </style>
+  </head>
+  {% endblock %}
+</head>
+{% block header %}
+<nav class="relative lg:absolute shadow-md py-2 bg-white flex items-center w-full justify-between">
+	<div class="px-6 flex flex-wrap items-center justify-between">
+		<button
+			class="p-2 focus:outline-none rounded-md lg:hidden"
+			@click="open = true"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 text-black"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M4 6h16M4 12h16M4 18h16"
+				/>
+			</svg>
+		</button>
+	<img class="ml-5 mr-2 h-12" src="../static/img/gohotel logo.png"> 
+	<p class="ViceCitySans text-2xl lg:px-2 py-2 mr-10 titlecolor">goHotel</p>
+</div>
+</nav>
+<nav class="lg:pt-16">
+<div class="absolute inset-0 transform lg:transform-none lg:opacity-100 duration-200 lg:relative z-10 w-72 text-white h-full bg-gray-100 lg:bg-transparent shadow-xl"
+:class="{'translate-x-0 ease-in opacity-100':open === true, '-translate-x-full ease-out opacity-0': open === false}"> <!-- w-72 on the first line & shadow-xl -->
+	<div class="w-full mx-auto items-center flex justify-between md:flex-nowrap flex-wrap px-3">
+		<div class="pt-3 mr-2">
+			<button
+		class="p-2 focus:outline-none rounded-md lg:hidden text-gray-900"
+		@click="open = false"
+		style="position: absolute;
+		left: 81.5%;
+		bottom: 92.5%;"
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="h-6 w-6"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke="currentColor"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M15 19l-7-7 7-7"
+			/>
+		</svg>
+	</button>
+			<div class="flex items-center space-x-4 mb-2 w-56">
+				<div class="relative ml-5 pt-5 mb-3">
+					<img class="h-16 rounded-full" src="{{ image_file }}" alt="Profile Picture">
+					<div class="absolute top-0 right-0 h-5 w-5 my-5 border-4 border-gray-100 rounded-full bg-green-400 z-2"></div>
+				</div>
+				<div>
+					<h4 class="font-semibold text-xl text-black">{{ current_user.username }}</h4>
+					<div class="text-sm tracking-wide flex items-center space-x-1">
+						<div class="text-gray-600">{{ current_user.role }}</div>
+					</div>
+				</div>
+			</div>
+			<ul class="space-y-2 text-sm">
+				<li class="{% if Name == "Dashboard" %} bg-gray-300 rounded-lg {% endif %}">
+					<a href="{{url_for('home')}}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium">
+						<span class="text-gray-600">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+							  </svg>						  
+						</span>
+						<span class="mustica">Dashboard</span>
+					</a>
+				</li>
+				{% if current_user.role == "Receptionist" or current_user.role == "Manager" %}
+				<li class="{% if Name == "Receptionist" %} bg-gray-300 rounded-lg {% endif %}">
+					<a href="{{ url_for('receptionist') }}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium">
+						<span class="text-gray-600">
+							  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+							  </svg>
+														
+						</span>
+						<span class="mustica">Receptionist</span>
+					</a>
+				</li>
+				{% endif %}
+				{% if current_user.role == "Housekeeper" or current_user.role == "Manager" %}
+				<li class="{% if Name == "Housekeeping" %} bg-gray-300 rounded-lg {% endif %}">
+					<a href=" {{url_for('housekeeping')}} " class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium">
+						<span class="text-gray-600">
+							<!--<svg class="h-5" viewBox="0 0 48 48" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M22.0621 25.6021L11.3291 5.4162C11.0698 4.92856 11.2549 4.32307 11.7426 4.06378C12.2302 3.8045 12.8357 3.98962 13.095 4.47726L23.828 24.6632L25.3504 23.8538C27.3009 22.8167 29.7229 23.5571 30.7601 25.5077L31.4081 26.7265L38.2771 36.7808L29.5401 41.4263L26.5133 35.4432L24.7287 36.3461L27.7739 42.3655L24.0282 44.3571L19.5334 33.0391L18.886 31.8212C17.8489 29.8707 18.5894 27.4487 20.5399 26.4116L22.0621 25.6021ZM26.2893 25.6197L21.4789 28.1775C20.5036 28.696 20.1333 29.907 20.6519 30.8823L21.2994 32.1001L29.6417 27.6644L28.9942 26.4466C28.4756 25.4714 27.2646 25.1011 26.2893 25.6197Z" fill="#333333"/> <path d="M17.7682 35.3599C17.4148 34.9358 16.7846 34.8783 16.3603 35.2314L16.3619 35.2301L16.3505 35.2392C16.3385 35.2488 16.3177 35.265 16.2885 35.287C16.2299 35.3311 16.1377 35.3981 16.0141 35.4805C15.7664 35.6456 15.3956 35.8708 14.9201 36.0972C13.9666 36.5513 12.6144 37.0001 11 37.0001C10.4477 37.0001 10 37.4478 10 38.0001C10 38.5524 10.4477 39.0001 11 39.0001C12.9856 39.0001 14.6334 38.4489 15.7799 37.9029C16.3544 37.6294 16.8086 37.3545 17.1235 37.1446C17.2811 37.0395 17.4045 36.9503 17.4912 36.885C17.5346 36.8523 17.5689 36.8256 17.5938 36.8058L17.6241 36.7815L17.634 36.7735L17.6375 36.7705L17.639 36.7693L17.6402 36.7683C18.0645 36.4147 18.1218 35.7842 17.7682 35.3599Z" fill="#333333"/> <path d="M19.832 40.4454C20.1384 40.9049 20.0142 41.5258 19.5547 41.8321L19.5526 41.8335L19.5495 41.8356L19.5399 41.8419L19.5077 41.8628C19.4806 41.8803 19.4423 41.9047 19.3935 41.9351C19.296 41.9957 19.1564 42.0803 18.9805 42.1808C18.6295 42.3814 18.1304 42.6476 17.5311 42.9139C16.3502 43.4388 14.7016 44.0001 13 44.0001C12.4477 44.0001 12 43.5524 12 43.0001C12 42.4478 12.4477 42.0001 13 42.0001C14.2984 42.0001 15.6498 41.5614 16.7189 41.0863C17.2446 40.8526 17.683 40.6187 17.9882 40.4443C18.1405 40.3573 18.2587 40.2857 18.3369 40.2369C18.376 40.2126 18.4051 40.1941 18.4234 40.1822L18.4427 40.1697L18.4453 40.168C18.9048 39.862 19.5258 39.986 19.832 40.4454Z"/>
+							</svg>-->
+							<svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="#4b5563" viewBox="0 0 980.02 978.83" stroke="currentColor"><path class="cls-1" d="M647.9,744.66c-5.6,22.3-34.1,71.1-79.4,136.7,12.4,2.9,24.3,6.1,36.3,8.3,22,4,44.1,7.1,66,11.1,7.2,1.3,10.9-1.3,14.7-7,44.2-65.7,79.8-135.9,109.7-209,11.7-28.6,21.7-57.9,32.5-86.9,1.1-2.9,2.2-5.9,3.5-9.4,23.7,8.2,46.8,16.1,71,24.5-4.3,12.7-8.3,24.7-12.5,36.6-36.3,101-81.6,197.5-141.9,286.6-5,7.4-10.7,14.4-15.6,21.8-11.4,17.1-27.2,22.4-47.1,20.5A863.27,863.27,0,0,1,462,926.56c-131.1-49.3-243.9-124.8-333.3-233.7-10.7-13-13.8-27.5-6.8-42.8,6.7-14.8,19.7-21.5,35.6-21.7,68.1-.9,133.8-14.5,197.2-38.5,57.4-21.7,109.8-51.8,150.1-99.4,11.7-13.8,21.2-29.4,32.2-44.9,20.8,11.7,42.1,23.7,65.7,37-12.2,17.6-23,35.2-35.8,51.4-31.2,39.4-70.5,69.3-114.1,93.6C387,664.16,316,685.16,242,697.16c-1.5.2-2.9.5-6.5,1.2,10.6,9.7,19.5,18.7,29.3,26.7,18.4,14.9,37,29.4,56.1,43.3,3.7,2.7,10.2,3.9,14.8,2.8,37.9-8.6,72.7-23.7,101.9-50.7-2.5,13.3-26.5,47-60.1,84.5,21.1,10.5,42.5,19.7,62.4,31.4,25.8,15.1,50.4,11,75.7.1,42.7-18.4,79.3-46,114.4-76C635.7,755.56,641.2,750.56,647.9,744.66Zm277-194.9c-120-53.4-239-106.4-359-159.7a110.94,110.94,0,0,1,46.5-53c35.1-20.7,71.9-23,109.2-6.8,47.9,20.9,95.8,41.9,143.3,63.9,55.8,25.8,82,83.9,65,141.6C928.6,540.26,926.8,544.66,924.9,549.76Zm-53.3-209.1c-37.8-16.8-75.1-33.4-112.3-50.1a11.4,11.4,0,0,1-2.4-2.2c1.4-2.8,2.7-5.7,4.2-8.4q70-131.4,140.1-262.7C909,2.56,918.1-1.84,934.9.66c15.5,2.3,28.6,8.9,38.6,21,6.6,8,8.3,16.6,4.6,26.8q-52.35,143.85-104.2,287.9c-.5,1.1-1.2,2.2-2.3,4.3Zm-569.7,92.5c-1.3,52.1-45,94.6-95.9,93-52-1.6-93.8-45-92.8-96.3,1.1-51,45-93.6,95.6-92.6C260.5,338.26,303.1,382.16,301.9,433.16ZM56.8,148.86a56.53,56.53,0,0,1,56.3,56.76v0c-.3,30.7-25.6,56-56.3,56.2S0,236.16,0,205.26a56.55,56.55,0,0,1,56.7-56.4ZM189,224.06a37.41,37.41,0,0,1,37.22-37.6h.58c20.8.1,37.9,17.4,37.5,38-.3,20.2-17.3,37.1-37.5,37.3-20.7.3-37.8-16.8-37.8-37.7Z" transform="translate(0 0)"/></svg>		  
+						</span>
+						<span class="mustica">Housekeeping</span>
+					</a>
+				</li>
+				{% endif %}
+				<li class="{% if Name == "Account" %} bg-gray-300 rounded-lg {% endif %}">
+					<a href=" {{url_for('account')}} " class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium">
+						<span class="text-gray-600">
+							<svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+							</svg>
+						</span>
+						<span class="mustica">Account Settings</span>
+					</a>
+				</li>
+				<li>
+					<a href=" {{url_for('root')}} " class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium">
+						<span class="text-gray-600">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+							  </svg>						  
+						</span>
+						<span class="mustica">Landing Page</span>
+					</a>
+				</li>
+				<li class="">
+					<a href="{{url_for('logout')}}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium">
+						<span class="text-gray-600">
+							<svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+							</svg>
+						</span>
+						<span class="mustica">Logout</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+</div>
+</nav>
+<div>
+{% endblock %}
+
+<body class="antialiased min-h-screen lg:flex bg-gray-100" x-data="{open: false}">
+	{% block body %}
+	
+	{% endblock %}
+  </div>
+  </div>
+  
+{% block footer %}
+<footer class="text-center lg:text-left bg-white text-gray-600">
+	<div class="mx-6 py-10 text-center md:text-left">
+	  <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+		<div class="">
+		  <h6 class="
+			  uppercase
+			  font-semibold
+			  mb-4
+			  flex
+			  items-center
+			  justify-center
+			  md:justify-start
+			">
+			goHotel 
+		  </h6>
+		  <p>
+			Why stick to old boring booking services, our bespoke systems will make your stay a treat from start to end. 
+		  </p>
+		</div>
+		<div class="">
+		  <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+			Rooms
+		  </h6>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Single</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Double</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Triple</a>
+		  </p>
+		  <p>
+			<a href="#!" class="text-gray-600">Quad</a>
+		  </p>
+		</div>
+		<div class="">
+		  <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+			Useful links
+		  </h6>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Hotels</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Contact</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">About</a>
+		  </p>
+		  <p>
+			<a href="#!" class="text-gray-600">Privacy Policy</a>
+		  </p>
+		</div>
+		<div class="">
+		  <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+			Contact
+		  </h6>
+		  <p class="flex items-center justify-center md:justify-start mb-4">
+			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="home"
+			  class="w-4 mr-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+			  <path fill="currentColor"
+				d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z">
+			  </path>
+			</svg>
+			[random location]
+		  </p>
+		  <p class="flex items-center justify-center md:justify-start mb-4">
+			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope"
+			  class="w-4 mr-4" role="img" xmlns="http://www.w3.org/2000/svg"
+			  viewBox="0 0 512 512">
+			  <path fill="currentColor"
+				d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z">
+			  </path>
+			</svg>
+			info@example.com
+		  </p>
+		  <p class="flex items-center justify-center md:justify-start mb-4">
+			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
+			  class="w-4 mr-4" role="img" xmlns="http://www.w3.org/2000/svg"
+			  viewBox="0 0 512 512">
+			  <path fill="currentColor"
+				d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z">
+			  </path>
+			</svg>
+			+ 44
+		  </p>
+		</div>
+	  </div>
+	</div>
+	<div class="text-center p-6 bg-gray-100">
+	  <span>© 2022 Copyright </span>
+	  <a class="text-gray-600 font-semibold" href="#">goHotel</a>
+	</div>
+  </footer>
+{% endblock %}
+</body>
+</html>
+{% block script %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+<!--<script src="./node_modules/chart.js/dist/Chart.js" crossorigin="anonymous"></script>-->
+{% endblock %}

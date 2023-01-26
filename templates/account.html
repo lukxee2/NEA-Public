@@ -1,0 +1,112 @@
+{% extends "dashlayout.html" %}
+
+{% block body %}
+<div class="lg:relative lg:p-5 lg:mt-14 absolute pt-1 mt-2 pl-5"> <!-- took a while but finally dialled in the responsive things, please don't delete istg -->
+  <div class="pl-8 pt-6 px-9 xs:p-0">
+    <div class="bg-white shadow w-full rounded-lg mr-40">
+      <div class="ml-5 pt-5 mb-3 relative w-24 h-24">
+        <img class="rounded-full border border-gray-100 shadow-sm" src="{{ image_file }}" alt="user image" />
+        <div class="absolute top-0 right-0 h-6 w-6 my-5 border-4 border-white rounded-full bg-green-400 z-2"></div>
+      </div>
+      <h2 class="text-2xl mustica px-5 pt-4">{% if current_user.display_name %}{{current_user.display_name}}{% else %}Display Name{% endif%}</h2>
+      <h3 class="text-lg LarkeNeueThin px-5 pb-4">@{{ current_user.username }}</h3>
+      <p class="text-md LarkeNeueRegular px-5">{{ current_user.email }}</p>
+      <p class="text-md LarkeNeueThin px-5 text-gray-500">{{ current_user.role }}</p>
+      <!--<img class="rounded-full account-img px-5 w-45" src="{{ image_file }}">-->
+      <!--{% block messages %} {% endblock %}-->
+      <div class="px-5 py-3">
+      <form method="POST" action="" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+          <fieldset class="form-group">
+          <legend class="border-bottom mb-5 mustica text-lg">Account Info</legend>
+          <div class="form-group">
+            {{ form.displayname.label(class="font-semibold text-sm text-gray-600 pb-1 block") }}
+            {% if form.displayname.errors %}
+                {{ form.displayname(class="border rounded-lg px-3 py-2 mt-1 mb-1 text-sm w-full") }}
+                <div class="py-2">
+                <div class="border border-red-400 rounded-b bg-red-100 px-2 py-2 text-red-700">
+                    {% for error in form.displayname.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+                {{ form.displayname(class="border rounded-lg px-3 py-2 mt-1 mb-1 text-sm w-full") }}
+            {% endif %}
+        </div>
+          <div class="form-group pt-2">
+              {{ form.username.label(class="font-semibold text-sm text-gray-600 pb-1 block") }}
+              {% if form.username.errors %}
+                  {{ form.username(class="border rounded-lg px-3 py-2 mt-1 mb-1 text-sm w-full") }}
+                  <div class="py-2">
+                  <div class="border border-red-400 rounded-b bg-red-100 px-2 py-2 text-red-700">
+                      {% for error in form.username.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+              </div>
+              {% else %}
+                  {{ form.username(class="border rounded-lg px-3 py-2 mt-1 mb-1 text-sm w-full") }}
+              {% endif %}
+          </div>
+          <div class="form-group pt-2">
+            {{ form.description.label(class="font-semibold text-sm text-gray-600 pb-1 block") }}
+            {% if form.description.errors %}
+                {{ form.description(class="border rounded-lg px-3 py-2 mt-1 mb-1 text-sm w-full") }}
+                <div class="py-2">
+                <div class="border border-red-400 rounded-b bg-red-100 px-2 py-2 text-red-700">
+                    {% for error in form.description.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+                {{ form.description(class="border rounded-lg px-3 py-2 mt-1 mb-1 text-sm w-full") }}
+            {% endif %}
+        </div>
+          <div class="form-group pt-2">
+              {{ form.email.label(class="font-semibold text-sm text-gray-600 pb-1 block") }}
+              {% if form.email.errors %}
+                  {{ form.email(class="border rounded-lg px-3 py-2 mt-1 mb-1 text-sm w-full") }}
+                  <div class="invalid-feedback">
+                      {% for error in form.email.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+              {% else %}
+                  {{ form.email(class="border rounded-lg px-3 py-2 mt-1 mb-1 text-sm w-full ") }}
+              {% endif %}
+          </div>
+          <div class="form-group pt-2 mb-8">
+              {{ form.picture.label(class="text-sm text-gray-600 font-semibold") }}
+              <!--{{ form.picture(class="block w-full font-text-sm text-gray-900 bg-gray-50 rounded-sm border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400") }}-->
+                <label class="block pt-1.5">
+                  <span class="sr-only">Choose File</span>
+                  {{ form.picture(class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100") }}
+                <label class="block">
+                </label>
+              {% if form.picture.errors %}
+                  {% for error in form.picture.errors %}
+                      <span class="text-danger">{{ error }}</span></br>
+                  {% endfor %}
+              {% endif %}
+          </div>
+      </fieldset>
+        <div class="form-group pb-2">
+          {{ form.submit(class="pt-2 bg-gray-900 ring-2 ring-gray-800 hover:bg-transparent hover:text-gray-900 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out font-semibold text-center inline-block ext-white w-full py-2.5 rounded-lg text-sm shadow-sm text-white") }}
+      </div>
+      </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />-->
+{% endblock %}

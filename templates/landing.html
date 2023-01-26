@@ -1,0 +1,464 @@
+{% extends "layout.html" %} <!-- homelayout.html -->
+{% block body %}
+
+<!-- Container for demo purpose -->
+<div>
+
+	<!-- Section: Design Block -->
+	<section class="mb-40">
+  
+	  <nav class="navbar navbar-expand-lg shadow-md py-2 bg-white relative flex items-center w-full justify-between">
+		<div class="px-6 w-full flex flex-wrap items-center justify-between">
+		  <div class="flex items-center">
+			<button
+			  class="navbar-toggler border-0 py-3 lg:hidden leading-none text-xl bg-transparent text-gray-600 hover:text-gray-700 focus:text-gray-700 transition-shadow duration-150 ease-in-out mr-2"
+			  type="button"
+			  data-bs-toggle="collapse"
+			  data-bs-target="#navbarSupportedContentY"
+			  aria-controls="navbarSupportedContentY"
+			  aria-expanded="false"
+			  aria-label="Toggle navigation"
+			>
+			  <svg
+				aria-hidden="true"
+				focusable="false"
+				data-prefix="fas"
+				class="w-5"
+				role="img"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 448 512"
+			  >
+				<path
+				  fill="currentColor"
+				  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+				></path>
+			  </svg>
+			</button>
+			<img class="ml-5 mr-2 h-12" src="../static/img/gohotel logo.png"> 
+			<p class="nav-link block ViceCitySans text-2xl lg:px-2 py-2 mr-10 titlecolor">goHotel</p>
+		  </div>
+		  <div class="navbar-collapse collapse grow items-center" id="navbarSupportedContentY">
+			<ul class="navbar-nav mr-auto gap-5 lg:flex lg:flex-row">
+			  <li class="nav-item">
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Hotels</a>
+			  </li>
+			  <li class="nav-item mb-2 lg:mb-0">
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Contact</a>
+			  </li>
+			  <li class="nav-item mb-2 lg:mb-0">
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
+			  </li>
+			</ul>
+		  </div>
+		  <a href="{{ url_for('login') }}">
+		  <div class="flex items-center lg:ml-auto">
+			<button type="button" class="inline-block px-6 py-2 bg-transparent ring-2 ring-gray-300 text-black mustica text-xs leading-tight uppercase rounded-lg shadow-md hover:bg-gray-100 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light" >Login</button>
+		  </div>
+		</a>
+		</div>
+	  </nav>
+  
+	  <div class="lg:mx-28 md:mx-20 mx-20 mt-11 mb-20 relative overflow-hidden rounded-3xl hotel-bg" style="height: 550px;"> <!--background-position: 50%; background-image: url('./static/img/background.jpg');--> <!-- bg-no-repeat bg-cover bg-gradient-to-r from-gray-900 to-transparent -->
+		<div class="px-16 pt-20">
+		<div class="text-6xl text-white dropshadow mustica">
+			<p class="pl-12">Find and book</p>
+			<p>A great experience</p>
+		</div><br>
+		<div class="LarkeNeueThin pl-3 text-lg"> <!-- pl-12 -->
+			<p class=" text-white dropshadow">Take away the stress from travelling by having all your</p>
+			<p class=" text-white dropshadow">controls all in one simple system</p>
+		</div>
+		</div>
+	  </div>
+
+	  <form method="POST" action="">
+		{{ form.hidden_tag() }}
+	<fieldset>
+	  <div class="container mx-auto px-6 md:px-12 xl:px-32">
+		<div class="text-center text-gray-800"> <!-- text-center -->
+		  <div class="block rounded-3xl shadow-lg px-6 py-4 md:py-10 md:px-12 margintop" style="background: hsla(0, 0%, 100%, .5); backdrop-filter: blur(30px);">
+			
+			<div class="grid justify-items-center grid-cols-4 gap-3 py-4 ">
+				<div>
+					<label class="text-2xl mustica">Facilities</label>
+				</div>
+				<div>
+					<span class="text-2xl mustica">Occuptants</span> <!-- text-md -->
+					
+				</div>
+				<div>
+					<span class="text-2xl mustica">Check in</span> <!-- text-md -->
+				</div>
+				<div>
+					<span class="text-2xl mustica">Check out</span> <!-- text-md -->
+				</div>		
+				<div>
+					<div class="border-t-0 px-6 border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex justify-center items-center h-full">
+						<div class="flex">
+							<div class="w-20 h-20 rounded-full border-2 border-blueGray-50 shadow flex justify-center items-center bg-gray-100"><img src="../static/img/swimming.svg" alt="..." class="w-14 h-14"></div>
+							<div class="w-20 h-20 rounded-full border-2 border-blueGray-50 shadow -ml-2 flex justify-center items-center bg-gray-100"><img src="../static/img/wifi2.svg" alt="..." class="w-14 h-14"></div>
+							<div class="w-20 h-20 rounded-full border-2 border-blueGray-50 shadow -ml-2 flex justify-center items-center bg-gray-100"><img src="../static/img/aircon.svg" alt="..." class="w-14 h-14"></div>
+							<div class="w-20 h-20 rounded-full border-2 border-blueGray-50 shadow -ml-2 flex justify-center items-center bg-gray-100"><img src="../static/img/food2.svg" alt="..." class="w-14 h-14"></div>
+						</div>
+					</div>
+				</div>
+				<div class="">
+					{% for error in form.adults.errors %}
+						<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                    {% endfor %}
+					<div class="number text-sm">
+						<label>Adults</label><br>
+						<span class="minus rounded-full">-</span>
+						{{ form.adults(type="text", class="inputnum", value="0") }}
+						<span class="plus rounded-full">+</span>
+					</div>
+					{% for error in form.children.errors %}
+						<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                    {% endfor %}
+					<div class="number text-sm pt-5">
+						<label>Children</label><br>
+						<span class="minus rounded-full">-</span>
+						{{ form.children(type="text", class="inputnum", value="0") }}
+						<span class="plus rounded-full">+</span>
+					</div>
+					  
+				</div>
+				<div>
+					<div class="w-48 flex justify-center items-center h-full">
+						{% for error in form.checkin.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                    	{% endfor %}
+						<div class="datepicker form-floating" data-mdb-toggle-button="false">
+							{{ form.checkin(type="text", class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none", placeholder="Select a date") }}
+						  <!--<input type="text"
+							class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+							placeholder="Select a date" />-->
+						  <label for="floatingInput" class="text-gray-700">Select a date</label>
+						  <button class="datepicker-toggle-button" data-mdb-toggle="datepicker">
+							<i class="fas fa-calendar datepicker-toggle-icon"></i>
+						  </button>
+						</div>
+					  </div>
+				</div>
+				<div>
+					<div class="w-48 flex justify-center items-center h-full">
+						{% for error in form.checkout.errors %}
+							<span class="text-sm text-red-500 py-2">{{ error }}</span>
+                    	{% endfor %}
+						<div class="datepicker form-floating" data-mdb-toggle-button="false">
+						{{ form.checkout(type="text", class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none", placeholder="Select a date") }}
+						  <!--<input type="text"
+							class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+							placeholder="Select a date" />-->
+						  <label for="floatingInput" class="text-gray-700">Select a date</label>
+						  <button class="datepicker-toggle-button" data-mdb-toggle="datepicker">
+							<i class="fas fa-calendar datepicker-toggle-icon"></i>
+						  </button>
+						</div>
+					  </div>
+					  <!--{{ form.checkout(class="") }}-->
+				</div>
+			</div>
+			<div class="pt-3 pb-1">
+			{{ form.submit(class="inline-block px-10 mt-3 py-3 bg-gray-900 ring-2 ring-gray-800 text-white font-semibold text-base leading-tight uppercase rounded-lg shadow-md hover:bg-transparent hover:text-gray-900 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out") }}
+			{% for error in form.submit.errors %}
+				<div class="pt-1">
+					<br><span class="text-sm text-red-500 py-2">{{ error }}</span>
+				</div>
+            {% endfor %}
+			<!--<button type="button" class="inline-block px-10 mt-3 py-3 bg-transparent ring-2 ring-gray-300 text-black font-semibold text-base leading-tight uppercase rounded-md shadow-md hover:bg-gray-100 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Start booking</button>-->
+			</div>
+			</div>
+		</div>
+	  </div>
+	</fieldset>
+	</form>
+	</section>
+
+	<!-- Section: Design Block -->
+	<!-- Container for demo purpose -->
+<div class="container my-24 px-24 mx-auto">
+
+	<!-- Section: Design Block -->
+	<section class="mb-32 text-gray-900 text-center">
+  
+	  <h2 class="text-4xl mustica mb-12 pb-4 text-center">Our Hotels</h2>
+  
+	  <div class="grid lg:grid-cols-3 gap-6 xl:gap-x-12">
+		<div class="mb-6 lg:mb-0">
+		  <div class="relative block bg-white rounded-lg shadow-lg">
+			<div class="flex">
+			  <div
+				class="relative overflow-hidden bg-no-repeat bg-cover relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg mx-4 -mt-4"
+				data-mdb-ripple="true" data-mdb-ripple-color="light">
+				<img src="https://mdbcdn.b-cdn.net/img/new/standard/city/024.webp" class="w-full" />
+				<a href="https://en.wikipedia.org/wiki/Los_Angeles">
+				  <div
+					class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 hover:opacity-100 transition duration-300 ease-in-out"
+					style="background-color: rgba(251, 251, 251, 0.15)"></div>
+				</a>
+			  </div>
+			</div>
+			<div class="p-6">
+			  <h5 class="font-bold text-lg mb-3">Los Angeles</h5>
+			  <p class="mb-4 pb-2">
+				Check-in to one of our hotels in the sprawling Southern California city and the center of the nation's film and television industry. You're just a walk from Hollywood Boulevard, where the Walk of Fame honors thousands of luminaries.
+			  </p>
+			</div>
+		  </div>
+		</div>
+  
+		<div class="mb-6 lg:mb-0">
+		  <div class="relative block bg-white rounded-lg shadow-lg">
+			<div class="flex">
+			  <div
+				class="relative overflow-hidden bg-no-repeat bg-cover relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg mx-4 -mt-4"
+				data-mdb-ripple="true" data-mdb-ripple-color="light">
+				<img src="https://mdbcdn.b-cdn.net/img/new/standard/city/031.webp" class="w-full" />
+				<a href="https://en.wikipedia.org/wiki/Italy">
+				  <div
+					class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 hover:opacity-100 transition duration-300 ease-in-out"
+					style="background-color: rgba(251, 251, 251, 0.15)"></div>
+				</a>
+			  </div>
+			</div>
+			<div class="p-6">
+			  <h5 class="font-bold text-lg mb-3">Italy</h5>
+			  <p class="mb-4 pb-2">
+				Check-in to one of our many Hotels in Italy, the country is beautiful with wonderful food, fascinating history, and gorgeous scenery. It's also a great place to visit for a romantic getaway, a family vacation, or a solo trip.
+			  </p>
+			</div>
+		  </div>
+		</div>
+  
+		<div class="mb-0">
+		  <div class="relative block bg-white rounded-lg shadow-lg">
+			<div class="flex">
+			  <div
+				class="relative overflow-hidden bg-no-repeat bg-cover relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg mx-4 -mt-4"
+				data-mdb-ripple="true" data-mdb-ripple-color="light">
+				<img src="https://mdbcdn.b-cdn.net/img/new/standard/city/081.webp" class="w-full" />
+				<a href="https://en.wikipedia.org/wiki/Spain">
+					<div
+					  class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 hover:opacity-100 transition duration-300 ease-in-out"
+					  style="background-color: rgba(251, 251, 251, 0.15)"></div>
+				  </a>
+			  </div>
+			</div>
+			<div class="p-6">
+			  <h5 class="font-bold text-lg mb-3">Spain</h5>
+			  <p class="mb-4 pb-2">
+				Check out one of our many resorts on the Iberian Peninsula, enjoy the sun, the sea, and the sand. You can also visit the country's many historical sites, including the Alhambra in Granada and the Sagrada Familia in Barcelona.
+			  </p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+  
+	</section>
+	<!-- Section: Design Block -->
+  <!-- Container for demo purpose -->
+
+{% endblock %}
+
+{% block footer %}
+<section class=" bg-white pb-20">
+    <div class="relative overflow-hidden bg-no-repeat bg-white h-72">
+		<div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16 lg:px-6">
+			<figure class="max-w-screen-md mx-auto">
+				<svg class="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"/>
+				</svg> 
+				<blockquote>
+					<p class="text-2xl LarkeNeueRegular text-gray-900 dark:text-white">"goHotel is amazing, it brings all the hotel systems under one easy to use site. I can even add more people to my booking allowing them to manage my room without the need for endless room keys."</p>
+				</blockquote>
+				<figcaption class="flex items-center justify-center mt-6 space-x-3">
+					<div class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
+						<div class="mustica text-lg text-gray-900 dark:text-white">John Smith</div> <!-- John Smith -->
+					</div>
+				</figcaption>
+			</figure>
+		</div>
+	</div>
+  </section>
+<section class=" bg-white pb-24">
+    <div class="relative overflow-hidden bg-no-repeat bg-gray-100 h-72"></div>
+
+    <div class="container mx-auto px- md:px-12 xl:px-32 bg-white">
+      <div class="text-center text-gray-800 ">
+        <div class="block rounded-lg shadow-lg px-24 py-12 md:py-16 md:px-12" style="margin-top: -170px; background: hsla(0, 100%, 100%, 1); backdrop-filter: blur(30px);">
+          <p class="text-4xl mustica text-center px-32 pb-12">
+            Join goHotel to get rewards and discover amazing discounts on your booking
+		  </p>
+		  <a href="{{ url_for('registerpage') }}">
+		  <button class="LarkeNeueThin bg-gray-900 ring-2 ring-gray-800 hover:bg-transparent hover:text-gray-900 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg focus:outline-none active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out text-center inline-block ext-white w-1/3 py-4 rounded-lg text-2xl shadow-sm text-white">Create an account</button>
+		  </a>
+		</div>
+      </div>
+    </div>
+  </section>
+<footer class="text-center lg:text-left bg-white text-gray-600">
+	<div class="mx-6 py-10 text-center md:text-left">
+	  <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+		<div class="">
+		  <h6 class="
+			  uppercase
+			  font-semibold
+			  mb-4
+			  flex
+			  items-center
+			  justify-center
+			  md:justify-start
+			">
+			goHotel 
+		  </h6>
+		  <p>
+			Why stick to old boring booking services, our bespoke systems will make your stay a treat from start to end. 
+		  </p>
+		</div>
+		<div class="">
+		  <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+			Rooms
+		  </h6>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Single</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Double</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Triple</a>
+		  </p>
+		  <p>
+			<a href="#!" class="text-gray-600">Quad</a>
+		  </p>
+		</div>
+		<div class="">
+		  <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+			Useful links
+		  </h6>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Hotels</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">Contact</a>
+		  </p>
+		  <p class="mb-4">
+			<a href="#!" class="text-gray-600">About</a>
+		  </p>
+		  <p>
+			<a href="#!" class="text-gray-600">Privacy Policy</a>
+		  </p>
+		</div>
+		<div class="">
+		  <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+			Contact
+		  </h6>
+		  <p class="flex items-center justify-center md:justify-start mb-4">
+			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="home"
+			  class="w-4 mr-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+			  <path fill="currentColor"
+				d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z">
+			  </path>
+			</svg>
+			[random location]
+		  </p>
+		  <p class="flex items-center justify-center md:justify-start mb-4">
+			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope"
+			  class="w-4 mr-4" role="img" xmlns="http://www.w3.org/2000/svg"
+			  viewBox="0 0 512 512">
+			  <path fill="currentColor"
+				d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z">
+			  </path>
+			</svg>
+			info@example.com
+		  </p>
+		  <p class="flex items-center justify-center md:justify-start mb-4">
+			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
+			  class="w-4 mr-4" role="img" xmlns="http://www.w3.org/2000/svg"
+			  viewBox="0 0 512 512">
+			  <path fill="currentColor"
+				d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z">
+			  </path>
+			</svg>
+			+ 44
+		  </p>
+		</div>
+	  </div>
+	</div>
+	<div class="text-center p-6 bg-gray-100">
+	  <span>© 2022 Copyright </span>
+	  <a class="text-gray-600 font-semibold" href="#">goHotel</a>
+	</div>
+  </footer>
+{% endblock %}
+</div>
+</div>
+
+{% block script %}
+<!--<script src="../static/node_modules/tw-elements/dist/js/index.min.js"></script>-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('.minus').click(function () {
+			var $input = $(this).parent().find('input');
+			var count = parseInt($input.val()) - 1;
+			count = count < 0 ? 0 : count;
+			$input.val(count);
+			$input.change();
+			return false;
+		});
+		$('.plus').click(function () {
+			var $input = $(this).parent().find('input');
+			$input.val(parseInt($input.val()) + 1);
+			$input.change();
+			return false;
+		});
+	});
+</script>
+<style> 
+	@font-face {
+		font-family: 'Mustica'; /*a name to be used later*/
+		src: url('./static/fonts/MusticaproSemibold.ttf'); /*URL to font*/
+	}
+	@font-face {
+		font-family: 'LarkeNeueBold'; /*a name to be used later*/
+		src: url('./static/fonts/Larke Neue Bold.ttf'); /*URL to font*/
+	}
+	@font-face {
+		font-family: 'LarkeNeueRegular'; /*a name to be used later*/
+		src: url('./static/fonts/Larke Neue Regular.ttf'); /*URL to font*/
+	}
+	@font-face {
+		font-family: 'LarkeNeueThin'; /*a name to be used later*/
+		src: url('./static/fonts/Larke Neue Thin.ttf'); /*URL to font*/
+	}
+	@font-face {
+		font-family: 'ViceCitySans'; /*a name to be used later*/
+		src: url('./static/fonts/ViceCitySans.otf'); /*URL to font*/
+	}
+	.hotel-bg {
+		background-image: linear-gradient(to right, rgba(17, 24, 39, 1), rgba(17, 24, 39, .90), rgba(43, 108, 176, 0)), 
+		url('./static/img/resortbackground.jpg');
+		background-repeat: no-repeat;
+        background-size: 100% 300%;
+		background-position: center;
+	}
+	.mustica {
+		font-family: 'Mustica'
+	}
+	.LarkeNeueBold {font-family: 'LarkeNeueBold'}
+	.LarkeNeueRegular {font-family: 'LarkeNeueRegular'}
+	.LarkeNeueThin {font-family: 'LarkeNeueThin'}
+	.titlecolor {
+		color: #232e40;
+	}
+	.ViceCitySans {font-family: 'ViceCitySans'}
+</style> <!-- background-image: linear-gradient(to right, rgba(38, 50, 56, 1), rgba(38, 50, 56, .90), rgba(43, 108, 176, 0)), --> <!-- https://media.hrs.com/media/image/c7/71/89/Pullman_Nadi_Bay_Resort_and_Spa_Fiji-Nadi-Aussenansicht-5-996429.jpg-->
+{% endblock %}
