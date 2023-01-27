@@ -1,7 +1,7 @@
 {
-  "name": "flask-tailwind",
+  "name": "nea-project",
   "version": "1.0.0",
-  "description": "Python Flask and Tailwind CSS Initial Projects",
+  "description": "Hotel Management System & Flask and Tailwind CSS Project",
   "main": "tailwind.config.js",
   "dependencies": {
     "autoprefixer": "^10.3.6",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lukxee2/NEA-Project.git"
+    "url": "git+https://github.com/lukxee2/NEA-Public.git"
   },
   "keywords": [
     "flask",
@@ -26,7 +26,7 @@
   "author": "Luke Rogers (lukxee2)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lukxee2/NEA-Project/issues"
+    "url": "https://github.com/lukxee2/NEA-Public/issues"
   },
-  "homepage": "https://github.com/lukxee2/NEA-Project"
+  "homepage": "https://github.com/lukxee2/NEA-Public"
 }
