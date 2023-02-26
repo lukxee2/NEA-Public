@@ -1,7 +1,7 @@
 import logging
 import os
 from flask_mail import Mail
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 from rq import Queue
 from rq.registry import ScheduledJobRegistry
 from redis import Redis
