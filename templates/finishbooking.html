@@ -40,17 +40,18 @@
 		  <div class="navbar-collapse collapse grow items-center" id="navbarSupportedContentY">
 			<ul class="navbar-nav mr-auto gap-5 lg:flex lg:flex-row">
 			  <li class="nav-item">
-				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="{{ url_for('root')}}" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
 			  </li>
 			  <li class="nav-item">
-				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Hotels</a>
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="/#hotels" data-mdb-ripple="true" data-mdb-ripple-color="light">Hotels</a>
 			  </li>
 			  <li class="nav-item mb-2 lg:mb-0">
-				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Contact</a>
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="{{ url_for('contact')}}" data-mdb-ripple="true" data-mdb-ripple-color="light">Contact</a>
 			  </li>
 			  <li class="nav-item mb-2 lg:mb-0">
-				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
+				<a class="nav-link block mustica pr-2 lg:px-2 py-2 text-black hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="{{ url_for('about')}}" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
 			  </li>
+			</ul>
 			</ul>
 		  </div>
 		</div>
@@ -261,6 +262,12 @@ function redirect() {
 	window.location.href = '{{url_for("bookingredirect")}}?adults={{adults}}&children={{children}}&checkin={{checkin}}&checkout={{checkout}}'
 	}
 </script>
+<script src="
+https://cdn.jsdelivr.net/npm/tw-elements@1.0.0-beta2/dist/js/tw-elements.umd.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/tw-elements@1.0.0-beta1/dist/css/index.min.css
+" rel="stylesheet">
 
 {% endblock %}
 
